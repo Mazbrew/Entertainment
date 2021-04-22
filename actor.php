@@ -137,15 +137,20 @@
         <?php
             echo "<table><thead><tr><th>Actor_id</th><th>First_name</th><th>Last_name</th><th>Last_update</th></thead><tbody>"; 
             if (isset($_POST['search'])){
+                
                 $search = $_POST['search'];
-
+            
                 $query = "SELECT * FROM actor WHERE actor_id LIKE '%$search%' ;";    
                 $result = mysqli_query($conn,$query);
 
-                while($row = mysqli_fetch_assoc($result)){   
-                    echo "<tr><td>" . $row['actor_id'] . "</td><td>" . $row['first_name'] . "</td><td>" . $row['last_name'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
+                if(mysqli_num_rows($result)>0){
+                    while($row = mysqli_fetch_assoc($result)){   
+                        echo "<tr><td>" . $row['actor_id'] . "</td><td>" . $row['first_name'] . "</td><td>" . $row['last_name'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
+                    }
+                }else{
+                    echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td></tr>";
                 }
-     
+
             }elseif(isset($_POST['reset'])){
                 $query = "SELECT * FROM actor;";
                 $result = mysqli_query($conn,$query);
