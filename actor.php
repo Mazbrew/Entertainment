@@ -7,13 +7,46 @@
 <html>
     <head>
         <title>Actor</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
 
         <style>
-            header{
-                text-align: center;
+            html{
+                font-family: 'Roboto', sans-serif;
             }
+
             body{
                 text-align: center;
+                margin:0px 0px 0px 0px;
+            }
+
+            .header{
+                text-align: center;
+                background-color: rgba(1, 58, 103, 1);
+                top: 0;
+                width: 100%;
+                color:white;
+                font-size: 50px;
+            }
+
+            .bar{
+                text-align: center;
+                background-color: rgba(1, 58, 103, 1);
+                margin: 0px 0px 0px 0px;
+                border: none;
+                top: 0;
+                width: 100%;
+                color:white;
+                font-size: 50px;
+            }
+
+            .button{
+                background-color: white;
+                border: none;
+                color: black;
+                text-align: center;
+                text-decoration: none;
+                font-size: 16px;
             }
 
             table{
@@ -24,15 +57,19 @@
 
 
             th{
-                background-color: rgba(0, 0, 0, 0.1);
-                text-align: left;
+                background-color: rgba(0, 176, 166, 1);
+                text-align: center;
                 position: sticky;
+                margin-left: 10px;
+                margin-right: 10px;
                 top: 0;
+                color: white;
             }
 
             td:nth-child(even){
-                background-color: rgba(0, 0, 0, 0.1);
+                background-color: rgba(0, 176, 166, 0.1);
             }
+
             .popup{
                 width: 100%;
                 height: 100%;
@@ -70,17 +107,17 @@
         </style>        
     </head>
 
-    <header>
-        <h1>POWERPUFFGIRLS&BOYS</h1>
-    </header>
-
     <body>
-        <div>
+        <div class="header">
+            POWERPUFFGIRLS&BOYS
+        </div>
+
+        <div class="bar">
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="Search by ID">
-                <input type = "submit" name= "reset" value= "RESET"> 
+                <input type ="text" name= "search" placeholder="SEARCH BY ID">
+                <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
-            <button id="peekaboo">INSERT</button>
+            <button id="peekaboo" class= "button">INSERT</button>
         </div>
 
         <?php
@@ -106,7 +143,6 @@
 
             }else {
                 $query = "SELECT * FROM actor;";
-                echo "<table class = 'table'>"; 
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
