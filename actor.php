@@ -78,7 +78,7 @@
                 background-color: rgba(0, 176, 166, 0.1);
             }
 
-            tbody tr td:hover{
+            tbody tr:hover{
                 background-color: rgba(0, 176, 166, 1);
                 color: white;
             }
@@ -154,7 +154,6 @@
                     echo "<tr><td>" . $row['actor_id'] . "</td><td>" . $row['first_name'] . "</td><td>" . $row['last_name'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
                 }
 
-
             }else {
                 $query = "SELECT * FROM actor;";
                 $result = mysqli_query($conn,$query);
@@ -172,11 +171,11 @@
                 <div class = "popdown" id="close">+</div>
                 <form action= "" method = "post">
                     <p>Actor ID:</p>
-                        <input type="text" name="actorid" >
+                        <input type="text" name="actorid" onkeydown="return event.key != 'Enter'">
                     <p>First Name:</p>
-                        <input type="text" name="firstname">
+                        <input type="text" name="firstname" onkeydown="return event.key != 'Enter'">
                     <p>Last Name:</p>
-                        <input type="text" name="lastname" style="display:block;">
+                        <input type="text" name="lastname" style="display:block;" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "insert" class= "insertbutton" value ="INSERT">
                 </form>
 
@@ -188,6 +187,8 @@
                         $lastupdate= date('Y-m-d H:i:s');
                         $insert = "INSERT INTO actor VALUES('$actorid','$firstname','$lastname','$lastupdate');";
                         $result = mysqli_query($conn,$insert); 
+                        
+                        echo("<meta http-equiv='refresh' content='1'>");
                     }
                 ?>
 
@@ -203,8 +204,7 @@
             document.querySelector('.popdown').addEventListener('click',
             function(){
                 document.querySelector('.popup').style.display= 'none';
-            }
-            );
+            });
         </script>
     </body>
 </html>
