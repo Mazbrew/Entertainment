@@ -1,2 +1,2 @@
 # Entertainment
-CW2 grouup assignment 
+CW2 group assignment 
