@@ -49,6 +49,16 @@
                 font-size: 16px;
             }
 
+            .insertbutton{
+                background-color: rgba(0, 176, 166, 1);
+                border: none;
+                color: white;
+                text-align: center;
+                text-decoration: none;
+                font-size: 16px;
+                margin: 10px;
+            }
+
             table{
                 margin-left: auto;
                 margin-right: auto;
@@ -60,14 +70,17 @@
                 background-color: rgba(0, 176, 166, 1);
                 text-align: center;
                 position: sticky;
-                margin-left: 10px;
-                margin-right: 10px;
                 top: 0;
                 color: white;
             }
 
-            td:nth-child(even){
+            td:nth-child(1){
                 background-color: rgba(0, 176, 166, 0.1);
+            }
+
+            tbody tr td:hover{
+                background-color: rgba(0, 176, 166, 1);
+                color: white;
             }
 
             .popup{
@@ -104,6 +117,7 @@
                 font-size: 45px;
                 cursor: pointer;
             }
+
         </style>        
     </head>
 
@@ -156,6 +170,27 @@
         <div class = "popup">
             <div class = "popupcontent">
                 <div class = "popdown" id="close">+</div>
+                <form action= "" method = "post">
+                    <p>Actor ID:</p>
+                        <input type="text" name="actorid" >
+                    <p>First Name:</p>
+                        <input type="text" name="firstname">
+                    <p>Last Name:</p>
+                        <input type="text" name="lastname" style="display:block;">
+                    <input type= "submit" name= "insert" class= "insertbutton" value ="INSERT">
+                </form>
+
+                <?php
+                    if(isset($_POST['insert'])){
+                        $actorid= $_POST['actorid'];
+                        $firstname= $_POST['firstname'];
+                        $lastname= $_POST['lastname'];
+                        $lastupdate= date('Y-m-d H:i:s');
+                        $insert = "INSERT INTO actor VALUES('$actorid','$firstname','$lastname','$lastupdate');";
+                        $result = mysqli_query($conn,$insert); 
+                    }
+                ?>
+
             <div>
         </div>
 
