@@ -24,6 +24,8 @@
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
             <button id="insert" class= "button">INSERT</button>
+            <button id="update" class= "button">UPDATE</button>
+            <button id="delete" class= "button">DELETE</button>
         </div>
 
         <?php
@@ -110,7 +112,90 @@
                     }
                     ?>
                 </form>
-            <div>
+            </div>
+        </div>
+
+        <div class = "update">
+            <div class = "popupcontent">
+                <div class = "updatedown" id="close">+</div>
+                <form action= "" method = "post">
+                    <p>Address ID:</p>
+                        <input type="text" name="addressid" onkeydown="return event.key != 'Enter'">
+                    <p>Address:</p>
+                        <input type="text" name="address" onkeydown="return event.key != 'Enter'">
+                    <p>District:</p>
+                        <input type="text" name="district" onkeydown="return event.key != 'Enter'">
+                    <p>City ID:</p>
+                        <input type="text" name="cityid" onkeydown="return event.key != 'Enter'">
+                    <p>Postal Code:</p>
+                        <input type="text" name="postalcode" onkeydown="return event.key != 'Enter'">
+                    <p>Phone:</p>
+                        <input type="text" name="phone" style = "display:block;" onkeydown="return event.key != 'Enter'">
+                    <input type= "submit" name= "update" class= "greenbutton" value ="UPDATE">
+
+                    <?php
+                    if(isset($_POST['update'])){
+                        if(!empty($_POST['addressid'])&& !empty($_POST['address'])&& !empty($_POST['district'])&& !empty($_POST['cityid'])&& !empty($_POST['postalcode'])&& !empty($_POST['phone'])){
+                            $addressid= $_POST['addressid'];
+                            $query= "SELECT address_id FROM address WHERE address_id = $addressid;";
+                            $result= mysqli_query($conn,$query);
+
+                            if(mysqli_num_rows($result)==1){
+                                $addressid= $_POST['addressid'];
+                                $address= $_POST['address'];
+                                $district= $_POST['district'];
+                                $cityid= $_POST['cityid'];
+                                $postalcode= $_POST['postalcode'];
+                                $phone = $_POST['phone'];
+                                $lastupdate= date('Y-m-d H:i:s');
+                                $update = "UPDATE address SET address='$address',district='$district',city_id='$cityid',postal_code='$postalcode',phone='$phone',last_update='$lastupdate' WHERE address_id='$addressid';";
+                                $result = mysqli_query($conn,$update);  
+                                
+                                echo("<meta http-equiv='refresh' content='1'>");
+                            }else{
+                                echo ("<p style='color:red;'>PREVIOUS UPDATE FAILED</p>");
+                            }
+                                
+                        }else{
+                            echo ("<p style='color:red;'>FILL ALL FIELDS</p>");
+                        }
+                    }
+                    ?>
+                </form>
+            </div>
+        </div>
+
+        <div class = "delete">
+            <div class = "popupcontent">
+                <div class = "deletedown" id="close">+</div>
+                <form action= "" method = "post">
+                    <p>Address ID:</p>
+                        <input type="text" name="addressid" onkeydown="return event.key != 'Enter'" style= "display:block">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                </form>
+            </div>
+
+            <?php
+                    if(isset($_POST['delete'])){
+                        if(!empty($_POST['addressid'])){
+                            $addressid= $_POST['addressid'];
+                            $query= "SELECT address_id FROM address WHERE address_id = $addressid;";
+                            $result= mysqli_query($conn,$query);
+
+                            if(mysqli_num_rows($result)==1){
+                                $delete = "DELETE FROM address WHERE address_id='$addressid';";
+                                $result = mysqli_query($conn,$delete);  
+                                
+                                echo("<meta http-equiv='refresh' content='1'>");
+                            }else{
+                                echo ("<p style='color:red;'>PREVIOUS DELETE FAILED</p>");
+                            }
+                                
+                        }else{
+                            echo ("<p style='color:red;'>FILL ALL FIELDS</p>");
+                        }
+                    }
+                    ?>
         </div>
 
         <script>
@@ -122,6 +207,27 @@
             document.querySelector('.insertdown').addEventListener('click',
             function(){
                 document.querySelector('.insert').style.display= 'none';
+            });
+
+            document.getElementById('update').addEventListener('click',
+            function(){
+                document.querySelector('.update').style.display= 'flex';
+            }
+            );
+            document.querySelector('.updatedown').addEventListener('click',
+            function(){
+                document.querySelector('.update').style.display= 'none';
+            });
+
+            
+            document.getElementById('delete').addEventListener('click',
+            function(){
+                document.querySelector('.delete').style.display= 'flex';
+            }
+            );
+            document.querySelector('.deletedown').addEventListener('click',
+            function(){
+                document.querySelector('.delete').style.display= 'none';
             });
         </script>
     </body>
