@@ -25,6 +25,7 @@
             </form>
             <button id="insert" class= "button">INSERT</button>
             <button id="update" class= "button">UPDATE</button>
+            <button id="delete" class= "button">DELETE</button>
         </div>
 
         <?php
@@ -93,11 +94,11 @@
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
-                                echo ("<p style='color:red;'>PREVIOUS ENTRY FAILED</p>");
+                                echo ("<p style='color:red;'>PREVIOUS INSERT FAILED</p>");
                             }
                                 
                         }else{
-                            echo ("<p style='color:red;'>ALL FIELDS MUST BE FILLED</p>");
+                            echo ("<p style='color:red;'>FILL ALL FIELDS</p>");
                         }
                     }
                     ?>
@@ -109,9 +110,76 @@
             <div class = "popupcontent">
                 <div class = "updatedown" id="close">+</div>
                 <form action= "" method = "post">
-                    hello
+                    <p>Actor ID:</p>
+                        <input type="text" name="actorid" onkeydown="return event.key != 'Enter'">
+                    <p>First Name:</p>
+                        <input type="text" name="firstname" onkeydown="return event.key != 'Enter'">
+                    <p>Last Name:</p>
+                        <input type="text" name="lastname" style="display:block;" onkeydown="return event.key != 'Enter'">
+                    <input type= "submit" name= "update" class= "greenbutton" value ="UPDATE">
+
+                    <?php
+                    if(isset($_POST['update'])){
+                        if(!empty($_POST['actorid'])&& !empty($_POST['firstname'])&& !empty($_POST['lastname'])){
+                            $actorid= $_POST['actorid'];
+                            $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
+                            $result= mysqli_query($conn,$query);
+
+                            if(mysqli_num_rows($result)==1){
+                                $actorid= $_POST['actorid'];
+                                $firstname= $_POST['firstname'];
+                                $lastname= $_POST['lastname'];
+                                $lastupdate= date('Y-m-d H:i:s');
+                                $update = "UPDATE actor SET first_name= '$firstname', last_name= '$lastname', last_update= '$lastupdate' WHERE actor_id = $actorid;";
+                                $result = mysqli_query($conn,$update); 
+                                
+                                echo("<meta http-equiv='refresh' content='1'>");
+                            }else{
+                                echo ("<p style='color:red;'>PREVIOUS UPDATE FAILED</p>");
+                            }
+                                
+                        }else{
+                            echo ("<p style='color:red;'>FILL ALL FIELDS</p>");
+                        }
+                    }
+                    ?>
+
                 </form>
             </div>
+        </div>
+
+        <div class = "delete">
+            <div class = "popupcontent">
+                <div class = "deletedown" id="close">+</div>
+                <form action= "" method = "post">
+                    <p>Actor ID:</p>
+                        <input type="text" name="actorid" onkeydown="return event.key != 'Enter'" style= "display:block">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                </form>
+            </div>
+
+            <?php
+                if(isset($_POST['delete'])){
+                    if(!empty($_POST['actorid'])){
+                        $actorid= $_POST['actorid'];
+                        $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
+                        $result= mysqli_query($conn,$query);
+
+                        if(mysqli_num_rows($result)==1){
+                            $actorid= $_POST['actorid'];
+                            $delete = "DELETE FROM actor WHERE actor_id= '$actorid' ";
+                            $result = mysqli_query($conn,$delete); 
+                            
+                            echo("<meta http-equiv='refresh' content='1'>");
+                        }else{
+                            echo ("<p style='color:red;'>PREVIOUS DELETE FAILED</p>");
+                        }
+                            
+                    }else{
+                        echo ("<p style='color:red;'>FILL ALL FIELDS</p>");
+                    }
+                }
+            ?>
         </div>
 
         <script>
@@ -133,6 +201,17 @@
             document.querySelector('.updatedown').addEventListener('click',
             function(){
                 document.querySelector('.update').style.display= 'none';
+            });
+
+            
+            document.getElementById('delete').addEventListener('click',
+            function(){
+                document.querySelector('.delete').style.display= 'flex';
+            }
+            );
+            document.querySelector('.deletedown').addEventListener('click',
+            function(){
+                document.querySelector('.delete').style.display= 'none';
             });
         </script>
     </body>
