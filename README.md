@@ -8,7 +8,21 @@ CW2 group assignment
 
 - Actor
     - link to index
-    - displaing the table
+    - displaying the table
     - searching
+    - insert
+    - update 
+    - delete
     - some fancy css stuff
-    - insertion of data but without error checking
+    - jank error checking
+
+- Address
+    - link to index
+    - displaying the table
+    - searching
+    - insert
+    - update
+    - delete
+    - fancy css stuff
+    - jank error checking
+
