@@ -16,6 +16,7 @@
         <div>
             <a href= "actor.php">actor</a>
             <a href= "address.php">address</a>
+            <a href= "category.php">category</a>
         </div>    
     </body>
 </html>
