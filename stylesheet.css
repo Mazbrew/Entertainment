@@ -1,0 +1,114 @@
+html{
+    font-family: 'Roboto', sans-serif;
+}
+
+body{
+    text-align: center;
+    margin:0px 0px 0px 0px;
+}
+
+.header{
+    text-align: center;
+    background-color: rgba(1, 58, 103, 1);
+    top: 0;
+    width: 100%;
+    color:white;
+    font-size: 50px;
+}
+
+.nostyle{
+    text-align: center;
+    text-decoration: none;
+    color:white;
+    font-size: 50px;
+}
+
+.bar{
+    text-align: center;
+    background-color: rgba(1, 58, 103, 1);
+    margin: 0px 0px 0px 0px;
+    border: none;
+    top: 0;
+    width: 100%;
+    color:white;
+    font-size: 50px;
+}
+
+.button{
+    background-color: white;
+    border: none;
+    color: black;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.insertbutton{
+    background-color: rgba(0, 176, 166, 1);
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 10px;
+}
+
+table{
+    margin-left: auto;
+    margin-right: auto;
+    border-collapse: collapse;
+}
+
+
+th{
+    background-color: rgba(0, 176, 166, 1);
+    text-align: center;
+    position: sticky;
+    top: 0;
+    color: white;
+}
+
+td:nth-child(1){
+    background-color: rgba(0, 176, 166, 0.1);
+}
+
+tbody tr:hover{
+    background-color: rgba(0, 176, 166, 1);
+    color: white;
+}
+
+.popup{
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    background-color: rgba(0, 0, 0, 0.7);
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: none;
+
+}
+
+.popupcontent{
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.popdown{
+    position: absolute;
+    margin: 0px 0px 0px 0px;
+    top: 0;
+    right: 10px;
+    transform: rotate(45deg);
+    font-size: 45px;
+    cursor: pointer;
+}
+
