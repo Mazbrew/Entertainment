@@ -15,6 +15,7 @@
 
         <div>
             <a href= "actor.php">actor</a>
+            <a href= "address.php">address</a>
         </div>    
     </body>
 </html>
