@@ -167,7 +167,7 @@
 
                         if(mysqli_num_rows($result)==1){
                             $actorid= $_POST['actorid'];
-                            $delete = "DELETE FROM actor WHERE actor_id= '$actorid' ";
+                            $delete = "DELETE FROM actor WHERE actor_id= '$actorid'; ";
                             $result = mysqli_query($conn,$delete); 
                             
                             echo("<meta http-equiv='refresh' content='1'>");
