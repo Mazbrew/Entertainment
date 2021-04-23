@@ -74,21 +74,33 @@
                     <p>Last Name:</p>
                         <input type="text" name="lastname" style="display:block;" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "insert" class= "insertbutton" value ="INSERT">
-                </form>
 
-                <?php
+                    <?php
                     if(isset($_POST['insert'])){
-                        $actorid= $_POST['actorid'];
-                        $firstname= $_POST['firstname'];
-                        $lastname= $_POST['lastname'];
-                        $lastupdate= date('Y-m-d H:i:s');
-                        $insert = "INSERT INTO actor VALUES('$actorid','$firstname','$lastname','$lastupdate');";
-                        $result = mysqli_query($conn,$insert); 
-                        
-                        echo("<meta http-equiv='refresh' content='1'>");
-                    }
-                ?>
+                        if(!empty($_POST['actorid'])&& !empty($_POST['firstname'])&& !empty($_POST['lastname'])){
+                            $actorid= $_POST['actorid'];
+                            $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
+                            $result= mysqli_query($conn,$query);
 
+                            if(mysqli_num_rows($result)==0){
+                                $actorid= $_POST['actorid'];
+                                $firstname= $_POST['firstname'];
+                                $lastname= $_POST['lastname'];
+                                $lastupdate= date('Y-m-d H:i:s');
+                                $insert = "INSERT INTO actor VALUES('$actorid','$firstname','$lastname','$lastupdate');";
+                                $result = mysqli_query($conn,$insert); 
+                                
+                                echo("<meta http-equiv='refresh' content='1'>");
+                            }else{
+                                echo ("<p style='color:red;'>PREVIOUS ENTRY FAILED</p>");
+                            }
+                                
+                        }else{
+                            echo ("<p style='color:red;'>ALL FIELDS MUST BE FILLED</p>");
+                        }
+                    }
+                    ?>
+                </form>
             <div>
         </div>
 
