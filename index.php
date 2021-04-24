@@ -17,7 +17,10 @@
             <a href= "actor.php">actor</a>
             <a href= "address.php">address</a>
             <a href= "category.php">category</a>
+            <a href= "customer.php">customer</a>
             <a href= "film_text.php">film_text</a>
+            <a href= "inventory.php">inventory</a>
+            <a href= "language.php">language</a>
         </div>    
     </body>
 </html>
