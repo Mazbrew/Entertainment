@@ -26,5 +26,15 @@ CW2 group assignment
     - fancy css stuff
     - jank error checking
 
-    asdfasdfasdfasdfasdfasd
+- Category
+    - link to index
+    - displaying the table
+    - searching
+    - insert
+    - update
+    - delete
+    - fancy css stuff
+    - jank error checking
+
+
 
