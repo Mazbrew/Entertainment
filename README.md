@@ -1,40 +1,35 @@
 # Entertainment
-CW2 group assignment 
+    CW2 group assignment 
+---
 
 ## Done so far 
-- Index page
-    - link to actor page
-    - 
+    - Index page with links to :
+        - Tables done thus far
+            - Actor
 
-- Actor
-    - link to index
-    - displaying the table
-    - searching
-    - insert
-    - update 
-    - delete
-    - some fancy css stuff
-    - jank error checking
+            - Address
 
-- Address
-    - link to index
-    - displaying the table
-    - searching
-    - insert
-    - update
-    - delete
-    - fancy css stuff
-    - jank error checking
+            - Category
 
-- Category
-    - link to index
-    - displaying the table
-    - searching
-    - insert
-    - update
-    - delete
-    - fancy css stuff
-    - jank error checking
+            - City
+
+            - Country
+
+            - Customer
+
+            - Film_text
+
+            - Inventory
+
+            - Language
+---
+## Things to be done
+    - make the css better
+    - more error checking
+    - THE REMAINGING TABLES
+    - bug testing for individual pages
+    - extras
+
 
 
 
