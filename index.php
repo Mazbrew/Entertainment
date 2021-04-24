@@ -17,8 +17,12 @@
             <a href= "actor.php">actor</a>
             <a href= "address.php">address</a>
             <a href= "category.php">category</a>
+<<<<<<< HEAD
+            <a href= "film_text.php">film_text</a>
+=======
             <a href= "city.php">city</a>
             <a href= "country.php">country</a>
+>>>>>>> a752e7fe371770c98d5b70c7cda9f597135b9bea
         </div>    
     </body>
 </html>
