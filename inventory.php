@@ -72,9 +72,9 @@
                     <p>Inventory ID:</p>
                         <input type="text" name="inventoryid" onkeydown="return event.key != 'Enter'">
                     <p>Film ID:</p>
-                        <input type="text" name="film_id" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="filmid" onkeydown="return event.key != 'Enter'">
                     <p>Store ID:</p>
-                        <input type="text" name="store_id" style="display:block;" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="storeid" style="display:block;" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
 
                     <?php
