@@ -94,12 +94,12 @@
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }
                             else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
                             }
                                 
                         } 
                         else{
-                            echo '<script> alert("FILL ALL FIELDS")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
                         }
                     }
                     
@@ -134,11 +134,11 @@
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
                             }
                                 
                         }else{
-                            echo '<script> alert("FILL ALL FIELDS")</script>';
+                            echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
                         }
                     }
                     ?>
@@ -171,11 +171,11 @@
                             
                             echo("<meta http-equiv='refresh' content='1'>");
                         }else{
-                            echo '<script> alert("PREVIOUS DELETE FAILED")</script>';
+                            echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
                         }
                             
                     }else{
-                        echo '<script> alert("FILL ALL FIELDS")</script>';
+                        echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
                     }
                 }
             ?>
