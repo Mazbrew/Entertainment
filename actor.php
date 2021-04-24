@@ -80,9 +80,9 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['actorid'])&& !empty($_POST['firstname'])&& !empty($_POST['lastname'])){
-                            $actorid= $_POST['actorid'];
-                            $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
-                            $result= mysqli_query($conn,$query);
+                        $actorid= $_POST['actorid'];
+                        $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
+                        $result= mysqli_query($conn,$query);
 
                             if(mysqli_num_rows($result)==0){
                                 $actorid= $_POST['actorid'];
@@ -90,17 +90,22 @@
                                 $lastname= $_POST['lastname'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "INSERT INTO actor VALUES('$actorid','$firstname','$lastname','$lastupdate');";
-                                $result = mysqli_query($conn,$insert); 
-                                
+                                $result = mysqli_query($conn,$insert);
+                                if (!empty($result)) {
+                                    echo 'Data Inserted';
+                                }    
                                 echo("<meta http-equiv='refresh' content='1'>");
-                            }else{
-                                echo ("<p style='color:red;'>PREVIOUS INSERT FAILED</p>");
+                            }
+                            else{
+                                echo '<script> alert("PREVIOUS INSERT FAILED")</script>';
                             }
                                 
-                        }else{
-                            echo ("<p style='color:red;'>FILL ALL FIELDS</p>");
+                        } 
+                        else{
+                            echo '<script> alert("FILL ALL FIELDS")</script>';
                         }
                     }
+                    
                     ?>
                 </form>
             </div>
@@ -135,11 +140,11 @@
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
-                                echo ("<p style='color:red;'>PREVIOUS UPDATE FAILED</p>");
+                                echo '<script> alert("PREVIOUS UPDATE FAILED")</script>';
                             }
                                 
                         }else{
-                            echo ("<p style='color:red;'>FILL ALL FIELDS</p>");
+                            echo '<script> alert("FILL ALL FIELDS")</script>';
                         }
                     }
                     ?>
@@ -172,11 +177,11 @@
                             
                             echo("<meta http-equiv='refresh' content='1'>");
                         }else{
-                            echo ("<p style='color:red;'>PREVIOUS DELETE FAILED</p>");
+                            echo '<script> alert("PREVIOUS DELETE FAILED")</script>';
                         }
                             
                     }else{
-                        echo ("<p style='color:red;'>FILL ALL FIELDS</p>");
+                        echo '<script> alert("FILL ALL FIELDS")</script>';
                     }
                 }
             ?>
