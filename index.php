@@ -18,6 +18,7 @@
             <a href= "address.php">address</a>
             <a href= "category.php">category</a>
             <a href= "city.php">city</a>
+            <a href= "country.php">country</a>
         </div>    
     </body>
 </html>
