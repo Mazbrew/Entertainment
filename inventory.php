@@ -1,4 +1,4 @@
- <?php
+<?php
     include_once "includes/connection.php";
 
 ?>
@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Film_ text</title>
+        <title>Inventory</title>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  
@@ -29,36 +29,36 @@
         </div>
 
         <?php
-            echo "<table><thead><tr><th>Film_id</th><th>Title</th><th>Description</th></thead><tbody>"; 
+            echo "<table><thead><tr><th>Inventory_id</th><th>Film_id</th><th>Store_id</th><th>Last_update</th></thead><tbody>"; 
             if (isset($_POST['search'])){
                 
                 $search = $_POST['search'];
             
-                $query = "SELECT * FROM film_text WHERE film_id LIKE '%$search%' ;";    
+                $query = "SELECT * FROM inventory WHERE inventory_id LIKE '%$search%' ;";    
                 $result = mysqli_query($conn,$query);
 
                 if(mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){   
-                        echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['title'] . "</td><td>" . $row['description'] . "</td></tr>";  
+                        echo "<tr><td>" . $row['inventory_id'] . "</td><td>" . $row['film_id'] . "</td><td>" . $row['store_id'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
                     }
                 }else{
-                    echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td></tr>";
+                    echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td></tr>";
                 }
 
             }elseif(isset($_POST['reset'])){
-                $query = "SELECT * FROM film_text;";
+                $query = "SELECT * FROM inventory;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
-                   echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['title'] . "</td><td>" . $row['description'] . "</td></tr>";  
+                    echo "<tr><td>" . $row['inventory_id'] . "</td><td>" . $row['film_id'] . "</td><td>" . $row['store_id'] . "</td><td>" . $row['last_update'] . "</td></tr>"; 
                 }
 
             }else {
-                $query = "SELECT * FROM film_text;";
+                $query = "SELECT * FROM inventory;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
-                    echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['title'] . "</td><td>" . $row['description'] . "</td></tr>";   
+                    echo "<tr><td>" . $row['inventory_id'] . "</td><td>" . $row['film_id'] . "</td><td>" . $row['store_id'] . "</td><td>" . $row['last_update'] . "</td></tr>";
                 }
     
             } 
@@ -69,26 +69,27 @@
             <div class = "popupcontent">
                 <div class = "insertdown" id="close">+</div>
                 <form action= "" method = "post">
+                    <p>Inventory ID:</p>
+                        <input type="text" name="inventoryid" onkeydown="return event.key != 'Enter'">
                     <p>Film ID:</p>
-                        <input type="text" name="filmid" onkeydown="return event.key != 'Enter'">
-                    <p>Title:</p>
-                        <input type="text" name="title" onkeydown="return event.key != 'Enter'">
-                    <p>Description:</p>
-                        <input type="text" name="description" style="display:block;" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="film_id" onkeydown="return event.key != 'Enter'">
+                    <p>Store ID:</p>
+                        <input type="text" name="store_id" style="display:block;" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
 
                     <?php
                     if(isset($_POST['insert'])){
-                        if(!empty($_POST['filmid'])&& !empty($_POST['title'])&& !empty($_POST['description'])){
-                        $filmid= $_POST['filmid'];
-                        $query= "SELECT film_id FROM film_text WHERE film_id = $filmid;";
+                        if(!empty($_POST['inventoryid'])&& !empty($_POST['filmid'])&& !empty($_POST['storeid'])){
+                        $inventoryid= $_POST['inventoryid'];
+                        $query= "SELECT inventory_id FROM inventory WHERE inventory_id = $inventoryid;";
                         $result= mysqli_query($conn,$query);
 
                             if(mysqli_num_rows($result)==0){
+                                $inventoryid= $_POST['inventoryid'];
                                 $filmid= $_POST['filmid'];
-                                $title= $_POST['title'];
-                                $description= $_POST['description'];
-                                $insert = "INSERT INTO film_text VALUES('$filmid','$title','$description');";
+                                $storeid= $_POST['storeid'];
+                                $lastupdate= date('Y-m-d H:i:s');
+                                $insert = "INSERT INTO inventory VALUES('$inventoryid','$filmid','$storeid','$lastupdate');";
                                 $result = mysqli_query($conn,$insert);
                                 if (!empty($result)) {
                                     echo 'Data Inserted';
@@ -114,26 +115,27 @@
             <div class = "popupcontent">
                 <div class = "updatedown" id="close">+</div>
                 <form action= "" method = "post">
+                    <p>Inventory ID:</p>
+                        <input type="text" name="inventoryid" onkeydown="return event.key != 'Enter'">
                     <p>Film ID:</p>
                         <input type="text" name="filmid" onkeydown="return event.key != 'Enter'">
-                    <p>Title:</p>
-                        <input type="text" name="title" onkeydown="return event.key != 'Enter'">
-                    <p>Description:</p>
-                        <input type="text" name="description" style="display:block;" onkeydown="return event.key != 'Enter'">
+                    <p>Store ID:</p>
+                        <input type="text" name="storeid" style="display:block;" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "update" class= "greenbutton" value ="UPDATE">
 
                     <?php
                     if(isset($_POST['update'])){
-                        if(!empty($_POST['filmid'])&& !empty($_POST['title'])&& !empty($_POST['description'])){
-                            $filmid= $_POST['filmid'];
-                            $query= "SELECT film_id FROM film_text  WHERE film_id = $filmid;";
+                        if(!empty($_POST['inventoryid'])&& !empty($_POST['filmid'])&& !empty($_POST['storeid'])){
+                            $inventoryid= $_POST['inventoryid'];
+                            $query= "SELECT inventory_id FROM inventory WHERE inventory_id = $inventoryid;";
                             $result= mysqli_query($conn,$query);
 
                             if(mysqli_num_rows($result)==1){
+                                $inventoryid= $_POST['inventoryid'];
                                 $filmid= $_POST['filmid'];
-                                $title= $_POST['title'];
-                                $description= $_POST['description'];
-                                $update = "UPDATE film_text SET title= '$title', description= '$description' WHERE film_id = $filmid;";
+                                $storeid= $_POST['storeid'];
+                                $lastupdate= date('Y-m-d H:i:s');
+                                $update = "UPDATE inventory SET film_id= '$filmid', store_id= '$storeid', last_update= '$lastupdate' WHERE inventory_id = $inventoryid;";
                                 $result = mysqli_query($conn,$update); 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
@@ -155,22 +157,22 @@
             <div class = "popupcontent">
                 <div class = "deletedown" id="close">+</div>
                 <form action= "" method = "post">
-                    <p>Film ID:</p>
-                        <input type="text" name="filmid" onkeydown="return event.key != 'Enter'" style= "display:block">
+                    <p>Inventory ID:</p>
+                        <input type="text" name="inventoryid" onkeydown="return event.key != 'Enter'" style= "display:block">
                     <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
                 </form>
             </div>
 
             <?php
                 if(isset($_POST['delete'])){
-                    if(!empty($_POST['filmid'])){
-                        $filmid= $_POST['filmid'];
-                        $query= "SELECT film_id FROM film_text WHERE film_id = $filmid;";
+                    if(!empty($_POST['inventoryid'])){
+                        $inventoryid= $_POST['inventoryid'];
+                        $query= "SELECT inventory_id FROM inventory WHERE inventory_id = $inventoryid;";
                         $result= mysqli_query($conn,$query);
 
                         if(mysqli_num_rows($result)==1){
-                            $filmid= $_POST['filmid'];
-                            $delete = "DELETE FROM film_text WHERE film_id= '$filmid'; ";
+                            $inventoryid= $_POST['inventoryid'];
+                            $delete = "DELETE FROM inventory WHERE inventory_id= '$inventoryid'; ";
                             $result = mysqli_query($conn,$delete); 
                             
                             echo("<meta http-equiv='refresh' content='1'>");
