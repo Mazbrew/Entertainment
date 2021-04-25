@@ -164,7 +164,7 @@
         <div class = "delete">
             <div class = "popupcontent">
                 <div class = "deletedown" id="close">+</div>
-                <form action= "" method = "post">
+                <form action= "" method = "post" onsubmit="return confirmDelete()">
                     <p>Actor ID:</p>
                         <input type="text" name="actorid" onkeydown="return event.key != 'Enter'" style= "display:block">
                     <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
@@ -174,9 +174,9 @@
             <?php
                 if(isset($_POST['delete'])){
                     //$conf = false;
-                    echo '<script> confirm("ARE YOU SURE TO DELETE THIS ROW?")</script>';
+                    //echo '<script> confirm("ARE YOU SURE TO DELETE THIS ROW?")</script>';
                         //if($conf){
-                       
+                       if ($confirm==1){
                             if(!empty($_POST['actorid'])){
                             $actorid= $_POST['actorid'];
                             $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
@@ -201,8 +201,10 @@
                             }else{
                                 echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
                             }
-                       
-                        }
+                       }else{
+                           echo '<script> alert("NO ROW IS DELETED!")</script>';
+                       }
+                    }
                         //else
                             //echo '<script> alert("NO DATA IS DELETED!")</script>';
                     //}
@@ -241,6 +243,17 @@
             function(){
                 document.querySelector('.delete').style.display= 'none';
             });
+            
+            function confirmDelete(){
+                var $confirm;
+                
+                if (!confirm("ARE YOU SURE TO DELETE THIS ROW?")){
+                    $confirm=0;
+                    
+                }else{
+                    $confirm=1;
+                }
+            }
         </script>
     </body>
 </html>
