@@ -182,7 +182,7 @@
                             $result = mysqli_query($conn,$delete); 
                             
                             echo("<meta http-equiv='refresh' content='1'>");
-                        }else{
+                        }elseif (mysqli_num_rows($result)==0){
                             echo '<script> alert("PREVIOUS DELETE FAILED!")</script>';
                         }
                             
