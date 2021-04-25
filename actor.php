@@ -80,26 +80,30 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['actorid'])&& !empty($_POST['firstname'])&& !empty($_POST['lastname'])){
-                        $actorid= $_POST['actorid'];
-                        $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
-                        $result= mysqli_query($conn,$query);
-
-                            if(mysqli_num_rows($result)==0){
+                            if($_POST['actorid'] > 0){
                                 $actorid= $_POST['actorid'];
-                                $firstname= $_POST['firstname'];
-                                $lastname= $_POST['lastname'];
-                                $lastupdate= date('Y-m-d H:i:s');
-                                $insert = "INSERT INTO actor VALUES('$actorid','$firstname','$lastname','$lastupdate');";
-                                $result = mysqli_query($conn,$insert);
-                                if (!empty($result)) {
-                                    echo 'Data Inserted';
-                                }    
-                                echo("<meta http-equiv='refresh' content='1'>");
+                                $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
+                                $result= mysqli_query($conn,$query);
+
+                                if(mysqli_num_rows($result)==0){
+                                    $actorid= $_POST['actorid'];
+                                    $firstname= $_POST['firstname'];
+                                    $lastname= $_POST['lastname'];
+                                    $lastupdate= date('Y-m-d H:i:s');
+                                    $insert = "INSERT INTO actor VALUES('$actorid','$firstname','$lastname','$lastupdate');";
+                                    $result = mysqli_query($conn,$insert);
+                                    if (!empty($result)) {
+                                        echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                    }    
+                                    echo("<meta http-equiv='refresh' content='1'>");
+                                }
+                                else{
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                }  
                             }
                             else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
                             }
-                                
                         } 
                         else{
                             echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
@@ -138,6 +142,8 @@
                                 $update = "UPDATE actor SET first_name= '$firstname', last_name= '$lastname', last_update= '$lastupdate' WHERE actor_id = $actorid;";
                                 $result = mysqli_query($conn,$update); 
                                 
+                                echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
                                 echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
@@ -169,7 +175,7 @@
                         $actorid= $_POST['actorid'];
                         $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
                         $result= mysqli_query($conn,$query);
-
+                        
                         if(mysqli_num_rows($result)==1){
                             $actorid= $_POST['actorid'];
                             $delete = "DELETE FROM actor WHERE actor_id= '$actorid'; ";
@@ -177,7 +183,7 @@
                             
                             echo("<meta http-equiv='refresh' content='1'>");
                         }else{
-                            echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                            echo '<script> alert("PREVIOUS DELETE FAILED!")</script>';
                         }
                             
                     }else{
