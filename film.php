@@ -39,7 +39,7 @@
 
                 if(mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){   
-                        echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['release_year_id'] . "</td><td>" . $row['language_id'] . "</td><td>" . $row['rental_duration'] . "</td><td>" . $row['rental_rate'] . "</td><td>" . $row['length'] . "</td><td>" . $row['replacement_cost'] . "</td><td>" . $row['rating'] . "</td><td>" . $row['special_features']. "</td><td>" $row['last_update'] . "</td></tr>";
+                        echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['release_year_id'] . "</td><td>" . $row['language_id'] . "</td><td>" . $row['rental_duration'] . "</td><td>" . $row['rental_rate'] . "</td><td>" . $row['length'] . "</td><td>" . $row['replacement_cost'] . "</td><td>" . $row['rating'] . "</td><td>" . $row['special_features']. "</td><td>" .$row['last_update'] . "</td></tr>";
                     }
                 }else{
                     echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td></tr>";
@@ -50,7 +50,7 @@
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
-                      echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['release_year_id'] . "</td><td>" . $row['language_id'] . "</td><td>" . $row['rental_duration'] . "</td><td>" . $row['rental_rate'] . "</td><td>" . $row['length'] . "</td><td>" . $row['replacement_cost'] . "</td><td>" . $row['rating'] . "</td><td>" . $row['special_features']. "</td><td>" $row['last_update'] . "</td></tr>";
+                      echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['release_year_id'] . "</td><td>" . $row['language_id'] . "</td><td>" . $row['rental_duration'] . "</td><td>" . $row['rental_rate'] . "</td><td>" . $row['length'] . "</td><td>" . $row['replacement_cost'] . "</td><td>" . $row['rating'] . "</td><td>" . $row['special_features']. "</td><td>" .$row['last_update'] . "</td></tr>";
                 }
 
             }else {
@@ -58,7 +58,7 @@
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
-                      echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['release_year_id'] . "</td><td>" . $row['language_id'] . "</td><td>" . $row['rental_duration'] . "</td><td>" . $row['rental_rate'] . "</td><td>" . $row['length'] . "</td><td>" . $row['replacement_cost'] . "</td><td>" . $row['rating'] . "</td><td>" . $row['special_features']. "</td><td>" $row['last_update'] . "</td></tr>";  
+                      echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['release_year_id'] . "</td><td>" . $row['language_id'] . "</td><td>" . $row['rental_duration'] . "</td><td>" . $row['rental_rate'] . "</td><td>" . $row['length'] . "</td><td>" . $row['replacement_cost'] . "</td><td>" . $row['rating'] . "</td><td>" . $row['special_features']. "</td><td>" .$row['last_update'] . "</td></tr>";  
                 }
     
             } 
