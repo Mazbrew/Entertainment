@@ -173,32 +173,39 @@
 
             <?php
                 if(isset($_POST['delete'])){
-                    echo '<script> confirm("ARE YOU SURE TO DELETE THIS ROW?")</script>';
-                    if(!empty($_POST['actorid'])){
-                        $actorid= $_POST['actorid'];
-                        $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
-                        $result= mysqli_query($conn,$query);
-                        
-                        if(mysqli_num_rows($result)==1){
+                    //$conf = false;
+                    echo '<script>confirm("ARE YOU SURE TO DELETE THIS ROW?")</script>)';
+                        //if($conf){
+                            if(!empty($_POST['actorid'])){
                             $actorid= $_POST['actorid'];
-                            $delete = "DELETE FROM actor WHERE actor_id= '$actorid'; ";
-                            $result = mysqli_query($conn,$delete);
+                            $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
+                            $result= mysqli_query($conn,$query);
                             
-                            if($query){
-                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
-                            }else{
-                                echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                            
+                            if(mysqli_num_rows($result)==1){
+                                $actorid= $_POST['actorid'];
+                                $delete = "DELETE FROM actor WHERE actor_id= '$actorid'; ";
+                                $result = mysqli_query($conn,$delete);
+                                
+                                if($result){
+                                    echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                                }else{
+                                    echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                                }
+                                
+                                echo("<meta http-equiv='refresh' content='1'>");
+                            }elseif (mysqli_num_rows($result)==0){
+                                echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
                             }
-                            
-                            echo("<meta http-equiv='refresh' content='1'>");
-                        }elseif (mysqli_num_rows($result)==0){
-                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
+                                
+                            }else{
+                                echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            }
                         }
-                            
-                    }else{
-                        echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
-                    }
-                }
+                        //else
+                            //echo '<script> alert("NO DATA IS DELETED!")</script>';
+                    //}
+                    
             ?>
         </div>
 
