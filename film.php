@@ -42,7 +42,7 @@
                         echo "<tr><td>" . $row['film_id'] . "</td><td>" . $row['release_year'] . "</td><td>" . $row['language_id'] . "</td><td>" . $row['rental_duration'] . "</td><td>" . $row['rental_rate'] . "</td><td>" . $row['length'] . "</td><td>" . $row['replacement_cost'] . "</td><td>" . $row['rating'] . "</td><td>" . $row['special_features'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
                     }
                 }else{
-                    echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td></tr>";
+                    echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td></tr>";
                 }
 
             }elseif(isset($_POST['reset'])){
