@@ -87,11 +87,13 @@
                         <input type="text" name="rating" onkeydown="return event.key != 'Enter'">
                     <p>Special Features:</p>
                         <input type="text" name="specialfeatures" style="display:block;"  onkeydown="return event.key != 'Enter'">
+                    <p>Last Update:</p>
+                        <input type="text" name="lastupdate" style="display:block;"  onkeydown="return event.key != 'Enter'">                    
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
 
                     <?php
                     if(isset($_POST['insert'])){
-                        if(!empty($_POST['filmid'])&& !empty($_POST['releaseyear'])&& !empty($_POST['languageid'])&& !empty($_POST['rentalduration'])&& !empty($_POST['rentalrate'])&& !empty($_POST['length'])&& !empty($_POST['replacementcost'])&& !empty($_POST['rating'])&& !empty($_POST['specialfeatures'])){
+                        if(!empty($_POST['filmid'])&& !empty($_POST['releaseyear'])&& !empty($_POST['languageid'])&& !empty($_POST['rentalduration'])&& !empty($_POST['rentalrate'])&& !empty($_POST['length'])&& !empty($_POST['replacementcost'])&& !empty($_POST['rating'])&& !empty($_POST['specialfeatures'])&& !empty($_POST['lastupdate'])){
                         $filmid= $_POST['filmid'];
                         $query= "SELECT film_id FROM film WHERE film_id = $filmid;";
                         $result= mysqli_query($conn,$query);
