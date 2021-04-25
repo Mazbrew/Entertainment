@@ -86,14 +86,12 @@
                     <p>Rating:</p>
                         <input type="text" name="rating" onkeydown="return event.key != 'Enter'">
                     <p>Special Features:</p>
-                        <input type="text" name="specialfeatures" onkeydown="return event.key != 'Enter'">
-                    <p>Last Update:</p>
-                        <input type="text" name="lastupdate" style="display:block;" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="specialfeatures" style="display:block;"  onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
 
                     <?php
                     if(isset($_POST['insert'])){
-                        if(!empty($_POST['filmid'])&& !empty($_POST['releaseyear'])&& !empty($_POST['languageid'])&& !empty($_POST['rentalduration'])&& !empty($_POST['rentalrate'])&& !empty($_POST['length'])&& !empty($_POST['replacementcost'])&& !empty($_POST['rating'])&& !empty($_POST['specialfeatures'])&& !empty($_POST['lastupdate'])){
+                        if(!empty($_POST['filmid'])&& !empty($_POST['releaseyear'])&& !empty($_POST['languageid'])&& !empty($_POST['rentalduration'])&& !empty($_POST['rentalrate'])&& !empty($_POST['length'])&& !empty($_POST['replacementcost'])&& !empty($_POST['rating'])&& !empty($_POST['specialfeatures'])){
                         $filmid= $_POST['filmid'];
                         $query= "SELECT film_id FROM film WHERE film_id = $filmid;";
                         $result= mysqli_query($conn,$query);
@@ -108,7 +106,7 @@
                                 $replacementcost= $_POST['replacementcost'];
                                 $rating= $_POST['rating'];
                                 $specialfeatures= $_POST['specialfeatures'];
-                                $lastupdate= $_POST['lastupdate'];
+                                $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "INSERT INTO film VALUES('$filmid','$releaseyear','$languageid','$rentalduration','$rentalrate','$length','$replacementcost','$rating','$specialfeatures','$lastupdate');";
                                 $result = mysqli_query($conn,$insert);
                                 if (!empty($result)) {
@@ -152,14 +150,12 @@
                     <p>Rating:</p>
                         <input type="text" name="rating" onkeydown="return event.key != 'Enter'">
                     <p>Special Features:</p>
-                        <input type="text" name="specialfeatures" onkeydown="return event.key != 'Enter'">
-                    <p>Last Update:</p>
-                        <input type="text" name="lastupdate" style="display:block;" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="specialfeatures" style="display:block;"  onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "update" class= "greenbutton" value ="UPDATE">
 
                     <?php
                     if(isset($_POST['update'])){
-                        if(!empty($_POST['filmid'])&& !empty($_POST['releaseyear'])&& !empty($_POST['languageid'])&& !empty($_POST['rentalduration'])&& !empty($_POST['rentalrate'])&& !empty($_POST['length'])&& !empty($_POST['replacementcost'])&& !empty($_POST['rating'])&& !empty($_POST['specialfeatures'])&& !empty($_POST['lastupdate'])){
+                        if(!empty($_POST['filmid'])&& !empty($_POST['releaseyear'])&& !empty($_POST['languageid'])&& !empty($_POST['rentalduration'])&& !empty($_POST['rentalrate'])&& !empty($_POST['length'])){
                             $filmid= $_POST['filmid'];
                             $query= "SELECT film_id FROM film WHERE film_id = $filmid;";
                             $result= mysqli_query($conn,$query);
@@ -174,7 +170,7 @@
                                 $replacementcost= $_POST['replacementcost'];
                                 $rating= $_POST['rating'];
                                 $specialfeatures= $_POST['specialfeatures'];
-                                $lastupdate= $_POST['lastupdate'];
+                                $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE film SET release_year= '$releaseyear', language_id= '$languageid',rental_duration='$rentalduration',rental_rate='$rentalrate',length='$length',replacement_cost='$replacementcost',rating='$rating',specialfeatures='$specialfeatures',last_update='$lastupdate' WHERE film_id = $filmid;";
                                 $result = mysqli_query($conn,$update); 
                                 
