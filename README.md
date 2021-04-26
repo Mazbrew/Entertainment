@@ -24,8 +24,8 @@
             - Language
 ---
 ## Things to be done
-    - make the css better
-    - more error checking
+    - make the css better (mostly done ig)
+    - more error checking (actor should be completely done d)
     - THE REMAINGING TABLES
     - bug testing for individual pages
     - extras
