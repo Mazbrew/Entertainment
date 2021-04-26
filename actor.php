@@ -164,7 +164,7 @@
         <div class = "delete">
             <div class = "popupcontent">
                 <div class = "deletedown" id="close">+</div>
-                <form action= "" method = "post" onsubmit="return confirmDelete()">
+                <form action= "" method = "post">
                     <p>Actor ID:</p>
                         <input type="text" name="actorid" onkeydown="return event.key != 'Enter'" style= "display:block">
                     <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
@@ -173,42 +173,31 @@
 
             <?php
                 if(isset($_POST['delete'])){
-                    //$conf = false;
-                    //echo '<script> confirm("ARE YOU SURE TO DELETE THIS ROW?")</script>';
-                        //if($conf){
-                       if ($confirm==1){
-                            if(!empty($_POST['actorid'])){
-                            $actorid= $_POST['actorid'];
-                            $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
-                            $result= mysqli_query($conn,$query);
+                    if(!empty($_POST['actorid'])){
+                        $actorid= $_POST['actorid'];
+                        $query= "SELECT actor_id FROM actor WHERE actor_id = $actorid;";
+                        $result= mysqli_query($conn,$query);
                             
-                                if(mysqli_num_rows($result)==1){
-                                    $actorid= $_POST['actorid'];
-                                    $delete = "DELETE FROM actor WHERE actor_id= '$actorid'; ";
-                                    $result = mysqli_query($conn,$delete);
+                        if(mysqli_num_rows($result)==1){
+                            $actorid= $_POST['actorid'];
+                            $delete = "DELETE FROM actor WHERE actor_id= '$actorid'; ";
+                            $result = mysqli_query($conn,$delete);
                                 
-                                    if($result){
-                                        echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
-                                    }else{
-                                        echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
-                                    }
-                                
-                                    echo("<meta http-equiv='refresh' content='1'>");
-                                }elseif (mysqli_num_rows($result)==0){
-                                    echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
-                                }
-                                
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
                             }else{
-                                echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                                echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
                             }
-                       }else{
-                           echo '<script> alert("NO ROW IS DELETED!")</script>';
-                       }
+                                
+                            echo("<meta http-equiv='refresh' content='1'>");
+                        }elseif (mysqli_num_rows($result)==0){
+                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
+                        }
+                                
+                    }else{
+                        echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
                     }
-                        //else
-                            //echo '<script> alert("NO DATA IS DELETED!")</script>';
-                    //}
-                    
+                }
             ?>
         </div>
 
