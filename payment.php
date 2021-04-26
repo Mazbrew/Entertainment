@@ -21,6 +21,8 @@
         <div class="bar">
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+            </form>
+            <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
             <button id="insert" class= "button">INSERT</button>
@@ -197,7 +199,7 @@
                 <form action= "" method = "post">
                     <p>Payment ID:</p>
                         <input type="text" name="paymentid" onkeydown="return event.key != 'Enter'" style= "display:block">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                        <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 

@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Film_ text</title>
+        <title>Film_text</title>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  
@@ -21,6 +21,8 @@
         <div class="bar">
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+            </form>
+            <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
             <button id="insert" class= "button">INSERT</button>

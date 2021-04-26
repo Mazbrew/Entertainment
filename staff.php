@@ -21,6 +21,8 @@
         <div class="bar">
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+            </form>
+            <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
             <button id="insert" class= "button">INSERT</button>
@@ -77,9 +79,9 @@
         ?>
 
         <div class = "insert">
-            <div class = "popupcontent">
+            <div class = "popupcontent" >
                 <div class = "insertdown" id="close">+</div>
-                <form action= "" method = "post">
+                <form action= "" method = "post" style = "height: 500px; overflow: auto">
                     <p>Staff ID:</p>
                         <input type="text" name="staffid" onkeydown="return event.key != 'Enter'">
                     <p>First Name:</p>
@@ -99,7 +101,7 @@
                     <p>Username:</p>
                         <input type="text" name="username" onkeydown="return event.key != 'Enter'">
                     <p>Password:</p>
-                        <input type="text" name="password" style="display:block;" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="password" style="display:block" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
 
                     <?php
@@ -157,7 +159,7 @@
         <div class = "update">
             <div class = "popupcontent">
                 <div class = "updatedown" id="close">+</div>
-                <form action= "" method = "post">
+                <form action= "" method = "post" style = "height: 500px; overflow: auto">
                 <p>Staff ID:</p>
                         <input type="text" name="staffid" onkeydown="return event.key != 'Enter'">
                     <p>First Name:</p>
@@ -232,7 +234,7 @@
                 <form action= "" method = "post">
                     <p>Staff ID:</p>
                         <input type="text" name="staffid" onkeydown="return event.key != 'Enter'" style= "display:block">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                        <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
