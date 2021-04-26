@@ -20,7 +20,7 @@
 
         <div class="bar">
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY ID">
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
             <button id="insert" class= "button">INSERT</button>
@@ -78,6 +78,7 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['languageid'])&& !empty($_POST['name'])){
+                            if($_POST['languageid'] > 0){
                         $languageid= $_POST['languageid'];
                         $query= "SELECT language_id FROM language WHERE language_id = $languageid;";
                         $result= mysqli_query($conn,$query);
@@ -89,7 +90,7 @@
                                 $insert = "INSERT INTO language VALUES('$languageid','$name','$lastupdate');";
                                 $result = mysqli_query($conn,$insert);
                                 if (!empty($result)) {
-                                    echo 'Data Inserted';
+                                   echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                 }    
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }
@@ -98,6 +99,10 @@
                             }
                                 
                         } 
+                        else{
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
+                            }
+                        }
                         else{
                             echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
                         }
@@ -131,6 +136,7 @@
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE language SET name= '$name',last_update= '$lastupdate' WHERE language_id = $languageid;";
                                 $result = mysqli_query($conn,$update); 
+                                echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -153,7 +159,7 @@
                 <form action= "" method = "post">
                     <p>Language ID:</p>
                         <input type="text" name="languageid" onkeydown="return event.key != 'Enter'" style= "display:block">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
@@ -169,11 +175,18 @@
                             $delete = "DELETE FROM language WHERE language_id= '$languageid'; ";
                             $result = mysqli_query($conn,$delete); 
                             
-                            echo("<meta http-equiv='refresh' content='1'>");
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+
+                
                         }else{
                             echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
                         }
-                            
+                           echo("<meta http-equiv='refresh' content='1'>");
+                            }elseif (mysqli_num_rows($result)==0){
+                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
+                        }
+
                     }else{
                         echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
                     }

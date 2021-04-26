@@ -20,7 +20,7 @@
 
         <div class="bar">
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY ID">
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
             <button id="insert" class= "button">INSERT</button>
@@ -80,19 +80,20 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['inventoryid'])&& !empty($_POST['filmid'])&& !empty($_POST['storeid'])){
-                        $inventoryid= $_POST['inventoryid'];
-                        $query= "SELECT inventory_id FROM inventory WHERE inventory_id = $inventoryid;";
-                        $result= mysqli_query($conn,$query);
-
-                            if(mysqli_num_rows($result)==0){
+                            if($_POST['inventoryid'] > 0){
                                 $inventoryid= $_POST['inventoryid'];
-                                $filmid= $_POST['filmid'];
-                                $storeid= $_POST['storeid'];
-                                $lastupdate= date('Y-m-d H:i:s');
-                                $insert = "INSERT INTO inventory VALUES('$inventoryid','$filmid','$storeid','$lastupdate');";
-                                $result = mysqli_query($conn,$insert);
+                                $query= "SELECT inventory_id FROM inventory WHERE inventory_id = $inventoryid;";
+                                $result= mysqli_query($conn,$query);
+
+                                if(mysqli_num_rows($result)==0){
+                                    $inventoryid= $_POST['inventoryid'];
+                                    $filmid= $_POST['filmid'];
+                                    $storeid= $_POST['storeid'];
+                                    $lastupdate= date('Y-m-d H:i:s');
+                                    $insert = "INSERT INTO inventory VALUES('$inventoryid','$filmid','$storeid','$lastupdate');";
+                                    $result = mysqli_query($conn,$insert);
                                 if (!empty($result)) {
-                                    echo 'Data Inserted';
+                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                 }    
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }
@@ -100,6 +101,10 @@
                                 echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
                             }
                                 
+                        } 
+                         else{
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
+                            }
                         } 
                         else{
                             echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
@@ -137,6 +142,7 @@
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE inventory SET film_id= '$filmid', store_id= '$storeid', last_update= '$lastupdate' WHERE inventory_id = $inventoryid;";
                                 $result = mysqli_query($conn,$update); 
+                                echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -159,7 +165,7 @@
                 <form action= "" method = "post">
                     <p>Inventory ID:</p>
                         <input type="text" name="inventoryid" onkeydown="return event.key != 'Enter'" style= "display:block">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
@@ -175,9 +181,15 @@
                             $delete = "DELETE FROM inventory WHERE inventory_id= '$inventoryid'; ";
                             $result = mysqli_query($conn,$delete); 
                             
-                            echo("<meta http-equiv='refresh' content='1'>");
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+
                         }else{
                             echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                        }
+                        echo("<meta http-equiv='refresh' content='1'>");
+                           }elseif (mysqli_num_rows($result)==0){
+                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
                         }
                             
                     }else{

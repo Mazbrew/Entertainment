@@ -20,7 +20,7 @@
 
         <div class="bar">
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY ID">
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
             <button id="insert" class= "button">INSERT</button>
@@ -80,26 +80,32 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['filmid'])&& !empty($_POST['title'])&& !empty($_POST['description'])){
-                        $filmid= $_POST['filmid'];
-                        $query= "SELECT film_id FROM film_text WHERE film_id = $filmid;";
-                        $result= mysqli_query($conn,$query);
+                            if($_POST['filmid'] > 0){
+                                $filmid= $_POST['filmid'];
+                                $query= "SELECT film_id FROM film_text WHERE film_id = $filmid;";
+                                $result= mysqli_query($conn,$query);
 
                             if(mysqli_num_rows($result)==0){
                                 $filmid= $_POST['filmid'];
-                                $title= $_POST['title'];
+                                $title= strtoupper($_POST['title']);
                                 $description= $_POST['description'];
                                 $insert = "INSERT INTO film_text VALUES('$filmid','$title','$description');";
                                 $result = mysqli_query($conn,$insert);
                                 if (!empty($result)) {
-                                    echo 'Data Inserted';
+                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                 }    
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }
                             else{
                                 echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
                             }
-                                
-                        } 
+                        }     
+                        
+                        else{
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
+                                }
+                        }
+
                         else{
                             echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
                         }
@@ -135,6 +141,8 @@
                                 $description= $_POST['description'];
                                 $update = "UPDATE film_text SET title= '$title', description= '$description' WHERE film_id = $filmid;";
                                 $result = mysqli_query($conn,$update); 
+
+                                echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -157,7 +165,7 @@
                 <form action= "" method = "post">
                     <p>Film ID:</p>
                         <input type="text" name="filmid" onkeydown="return event.key != 'Enter'" style= "display:block">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
@@ -173,9 +181,15 @@
                             $delete = "DELETE FROM film_text WHERE film_id= '$filmid'; ";
                             $result = mysqli_query($conn,$delete); 
                             
-                            echo("<meta http-equiv='refresh' content='1'>");
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+
                         }else{
                             echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                        }
+                         echo("<meta http-equiv='refresh' content='1'>");
+                           }elseif (mysqli_num_rows($result)==0){
+                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
                         }
                             
                     }else{
