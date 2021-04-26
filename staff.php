@@ -123,6 +123,8 @@
                                     $username= $_POST['username'];
                                     $password= $_POST['password'];
                                     $lastupdate= date('Y-m-d H:i:s');
+                                    $firstname= strtoupper($firstname);
+                                    $lastname= strtoupper($lastname);
                                     $insert = "INSERT INTO rental VALUES('$staffid','$firstname','$lastname','$addressid','$picture','$email',
                                     '$storeid','$active','$username','$password','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
@@ -198,6 +200,8 @@
                                 $username= $_POST['username'];
                                 $password= $_POST['password'];
                                 $lastupdate= date('Y-m-d H:i:s');
+                                $firstname= strtoupper($firstname);
+                                $lastname= strtoupper($lastname);
                                 $update = "UPDATE rental SET firstname= '$firstname', lastname= '$lastname', address_id = '$addressid', 
                                 picture = '$picture',email = '$email',store_id = '$storeid',active = '$active',username= '$username', password= '$password', last_update= '$lastupdate' WHERE staff_id = $staffid;";
                                 $result = mysqli_query($conn,$update); 
