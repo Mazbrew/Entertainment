@@ -20,7 +20,7 @@
 
         <div class="bar">
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID">
+                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
             <button id="insert" class= "button">INSERT</button>

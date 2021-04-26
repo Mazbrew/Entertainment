@@ -12,6 +12,8 @@
         <div class = "header">
             POWERPUFFGIRLS&BOYS
         </div>
+        
+        <div class = "bar"><br /></div>
 
         <div>
             <a href= "actor.php">actor</a>
