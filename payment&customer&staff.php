@@ -32,7 +32,7 @@
             if (isset($_POST['search'])){
                 
                 $search = $_POST['search'];
-            
+        
                 $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, staff.first_name AS staff_first, staff.last_name AS staff_last, rental_id, amount, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id INNER JOIN staff ON staff.staff_id = payment.staff_id WHERE payment_id LIKE '%$search%' GROUP BY payment_id ;";    
                 $result = mysqli_query($conn,$query);
 
