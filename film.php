@@ -173,7 +173,7 @@
                                 $rating= $_POST['rating'];
                                 $specialfeatures= $_POST['specialfeatures'];
                                 $lastupdate= date('Y-m-d H:i:s');
-                                $update = "UPDATE film SET release_year= '$releaseyear', language_id= '$languageid',rental_duration='$rentalduration',rental_rate='$rentalrate',length='$length',replacement_cost='$replacementcost',rating='$rating',special_features='$specialfeatures',last_update='$lastupdate' WHERE film_id = $filmid;";
+                                $update = "UPDATE film SET release_year= '$releaseyear', language_id= '$languageid',rental_duration='$rentalduration',rental_rate='$rentalrate',length='$length',replacement_cost='$replacementcost',rating='$rating',specialfeatures='$specialfeatures',last_update='$lastupdate' WHERE film_id = $filmid;";
                                 $result = mysqli_query($conn,$update); 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
