@@ -232,17 +232,6 @@
             function(){
                 document.querySelector('.delete').style.display= 'none';
             });
-            
-            function confirmDelete(){
-                var $confirm;
-                
-                if (!confirm("ARE YOU SURE TO DELETE THIS ROW?")){
-                    $confirm=0;
-                    
-                }else{
-                    $confirm=1;
-                }
-            }
         </script>
     </body>
 </html>
