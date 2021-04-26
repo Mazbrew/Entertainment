@@ -37,8 +37,27 @@ body{
 
 .menu{
     text-align: left;
-    margin:5px 3px 3px 15px;
+    margin: 10px 3px 3px 15px;
 }
+
+h1{
+    text-align: center;
+    font-size: 60px;
+    color: rgba(0, 176, 166, 1);
+    text-shadow: 1px 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+.intro{
+    text-align: center;
+    font-size: 25px;
+    color: rgba(255, 255, 255, 1);
+    background-color: rgba(0, 176, 166, 1);
+    width: 910px;
+    padding: 40px;
+    box-sizing: border-box;
+    margin-left: 270px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+} 
 
 .button{
     background-color: white;

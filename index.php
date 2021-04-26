@@ -39,12 +39,32 @@
         </div>
 
         <div class="menu">
-            <span style="font-size:30px;cursor:pointer;color:rgba(0, 176, 166, 1); text-align:left" onclick="openNav()">&#9776; MENU</span>
+            <span style="font-size:25px;cursor:pointer;color:rgba(0, 176, 166, 1); text-align:left" onclick="openNav()">&#9776; MENU</span>
+        </div>
+        
+        <div>
+            <h1>WELCOME TO OUR WEBSITE</h1>
+        </div>
+        
+        <div class="intro">
+            <br />
+            <br />
+            <p>PLEASE CHOOSE THE TABLE YOU WISH TO</p>
+            <p>ACCESS FROM THE SIDEBAR MENU</p>
+            <br />
+            <p>ACCESSING THE TABLES ALLOWS YOU</p>
+            <p>TO PERFORM TASKS ON THE TABLES</p>
+            <p>AND DISPLAYING RELEVANT DATA</p>
+            <br />
+            <p>TASKS INCLUDE SEARCH, RESET, INSERT, UPDATE AND DELETE</p>
+            <p>THE DATA OF THE TABLES</p>
+            <br />
+            <br />
         </div>
 
         <script>
             function openNav() {
-                document.getElementById("mySidenav").style.width = "600px";
+                document.getElementById("mySidenav").style.width = "620px";
             }
 
             function closeNav() {
