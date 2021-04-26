@@ -79,9 +79,9 @@
         ?>
 
         <div class = "insert">
-            <div class = "popupcontent">
+            <div class = "popupcontent" >
                 <div class = "insertdown" id="close">+</div>
-                <form action= "" method = "post">
+                <form action= "" method = "post" style = "height: 500px; overflow: auto">
                     <p>Staff ID:</p>
                         <input type="text" name="staffid" onkeydown="return event.key != 'Enter'">
                     <p>First Name:</p>
@@ -101,7 +101,8 @@
                     <p>Username:</p>
                         <input type="text" name="username" onkeydown="return event.key != 'Enter'">
                     <p>Password:</p>
-                        <input type="text" name="password" style="display:block;" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="password" onkeydown="return event.key != 'Enter'">
+                        <br />
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
 
                     <?php
@@ -159,7 +160,7 @@
         <div class = "update">
             <div class = "popupcontent">
                 <div class = "updatedown" id="close">+</div>
-                <form action= "" method = "post">
+                <form action= "" method = "post" style = "height: 500px; overflow: auto">
                 <p>Staff ID:</p>
                         <input type="text" name="staffid" onkeydown="return event.key != 'Enter'">
                     <p>First Name:</p>
@@ -179,8 +180,9 @@
                     <p>Username:</p>
                         <input type="text" name="username" onkeydown="return event.key != 'Enter'">
                     <p>Password:</p>
-                        <input type="text" name="password" style="display:block;" onkeydown="return event.key != 'Enter'">
-                    <input type= "submit" name= "update" class= "greenbutton" value ="UPDATE">
+                        <input type="text" name="password" onkeydown="return event.key != 'Enter'">
+                        <br />
+                    <input type= "submit" name= "update"  class= "greenbutton" value ="UPDATE">
 
                     <?php
                     if(isset($_POST['update'])){
