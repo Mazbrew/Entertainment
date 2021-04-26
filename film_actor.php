@@ -21,8 +21,6 @@
         <div class="bar">
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
-            </form>
-            <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
             <button id="insert" class= "button">INSERT</button>
@@ -89,7 +87,6 @@
                                     $actorid= $_POST['actorid'];
                                     $filmid= $_POST['filmid'];
                                     $lastupdate= date('Y-m-d H:i:s');
-                                    $filmid= strtoupper($filmid);
                 
                                     $insert = "INSERT INTO actor VALUES('$actorid','$filmid','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
