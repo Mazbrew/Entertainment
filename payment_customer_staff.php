@@ -34,7 +34,7 @@
                 $query = "SELECT payment_id, customer.first_name AS customer_first_name, customer.last_name AS customer_last_name, staff.first_name AS staff_first_name, staff.last_name AS staff_last_name, rental_id, amount, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id INNER JOIN staff ON staff.staff_id = payment.staff_id WHERE payment_id LIKE '%search%' GROUP BY payment_id ;";    
                 $result = mysqli_query($conn,$query);
 
-                if(mysqli_num_rows($result)>0){
+                if (mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){   
                         echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['staff_first'] . "</td><td>" . $row['staff_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['amount'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>"; 
                     }
