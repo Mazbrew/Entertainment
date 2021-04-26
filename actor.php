@@ -167,7 +167,7 @@
                 <form action= "" method = "post">
                     <p>Actor ID:</p>
                         <input type="text" name="actorid" onkeydown="return event.key != 'Enter'" style= "display:block">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
