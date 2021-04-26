@@ -35,6 +35,11 @@ body{
     box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.4);
 }
 
+.menu{
+    text-align: left;
+    margin:5px 3px 3px 15px;
+}
+
 .button{
     background-color: white;
     border: none;
@@ -48,6 +53,7 @@ body{
 
 .button:hover{
     opacity: 0.5;
+    transition: 0.3s;
     cursor: pointer;
 }
 
@@ -64,6 +70,7 @@ body{
 
 .greenbutton:hover{
     opacity: 0.5;
+    transition: 0.3s;
     cursor: pointer;
 }
 
@@ -106,6 +113,7 @@ tbody tr:hover{
     background-color: rgba(0, 176, 166, 1);
     color: white;
     opacity: 0.65;
+    transition: 0.2s;
 }
 
 .insert{
@@ -194,6 +202,47 @@ tbody tr:hover{
     align-items: center;
 }
 
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: rgb(255, 204, 0);
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 40px;
+  padding-bottom: 400px;
+  text-align: left;  
+}
+
+.sidenav a {
+  padding: 10px 20px 80px 35px;
+  text-decoration: none;
+  font-size: 25px;
+  color: rgba(255, 255, 255, 1);
+  display: block;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 10px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 500px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
 
 
 

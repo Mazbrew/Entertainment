@@ -15,7 +15,8 @@
         
         <div class = "bar"><br /></div>
 
-        <div>
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href= "actor.php">actor</a>
             <a href= "address.php">address</a>
             <a href= "category.php">category</a>
@@ -35,6 +36,20 @@
             <a href= "payment&customer&staff.php">payment&customer&staff</a>
             <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
             <a href= "country&city&address.php">country&city&address</a>
-        </div>    
+        </div>
+
+        <div class="menu">
+            <span style="font-size:30px;cursor:pointer;color:rgba(0, 176, 166, 1); text-align:left" onclick="openNav()">&#9776; MENU</span>
+        </div>
+
+        <script>
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "600px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
+        </script>
     </body>
 </html>
