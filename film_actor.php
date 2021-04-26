@@ -87,7 +87,6 @@
                                     $actorid= $_POST['actorid'];
                                     $filmid= $_POST['filmid'];
                                     $lastupdate= date('Y-m-d H:i:s');
-                                    $filmid= strtoupper($filmid);
                 
                                     $insert = "INSERT INTO actor VALUES('$actorid','$filmid','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
