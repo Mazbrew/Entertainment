@@ -165,7 +165,7 @@
                 <form action= "" method = "post">
                     <p>City ID:</p>
                         <input type="text" name="cityid" onkeydown="return event.key != 'Enter'" style= "display:block;">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
