@@ -46,7 +46,7 @@
                 <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
             </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ACTOR ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY FILM ID" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
@@ -123,7 +123,7 @@
                                     echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                 }
                                 else
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! FILM ID ENTERED DOES NOT EXIST, PLEASE CHECK THE FILM TABLE FOR AN EXISTING FILM ID")</script>';    
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }
                             else{
@@ -137,7 +137,7 @@
                         }
 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED! PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! PLEASE FILL ALL FIELDS")</script>';
                         }
                     }
                     
@@ -168,7 +168,7 @@
 
                             if(mysqli_num_rows($result)==1){
                                 $filmid= $_POST['filmid'];
-                                $title= $_POST['title'];
+                                $title= strtoupper($_POST['title']);
                                 $description= $_POST['description'];
                                 $update = "UPDATE film_text SET title= '$title', description= '$description' WHERE film_id = $filmid;";
                                 $result = mysqli_query($conn,$update); 
@@ -176,7 +176,7 @@
                                 if($result)
                                     echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
                                 else
-                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! FILM ID ENTERED DOES NOT EXIST, PLEASE CHECK THE FILM TABLE FOR AN EXISTING FILM ID")</script>';
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -187,7 +187,7 @@
                             }  
                                 
                         }else{
-                            echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS UPDATE FAILED! PLEASE FILL ALL FIELDS")</script>';
                         }
                     }
                     ?>
@@ -234,7 +234,7 @@
                         } 
                             
                     }else{
-                        echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                        echo '<script> alert("PREVIOUS DELETE FAILED! PLEASE FILL ALL FIELDS")</script>';
                     }
                 }
             ?>
