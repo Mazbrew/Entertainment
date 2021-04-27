@@ -124,7 +124,7 @@
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                     }
                                     else
-                                        echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
+                                        echo '<script> alert("PREVIOUS INSERT FAILED! FILM ID OR STORE ID ENTERED DOES NOT EXIST, PLEASE CHECK THE FILM AND STORE TABLES FOR AN EXISTING FILM ID AND STORE ID RESPECTIVELY")</script>';    
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
@@ -174,7 +174,7 @@
                                 if($result)
                                         echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
                                     else
-                                        echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                        echo '<script> alert("PREVIOUS UPDATE FAILED! FILM ID OR STORE ID ENTERED DOES NOT EXIST, PLEASE CHECK THE FILM AND STORE TABLES FOR AN EXISTING FILM ID AND STORE ID RESPECTIVELY")</script>';
                                 
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }else{
