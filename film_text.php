@@ -19,8 +19,34 @@
         </div>
 
         <div class="bar">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href= "actor.php">actor</a>
+                <a href= "address.php">address</a>
+                <a href= "category.php">category</a>
+                <a href= "city.php">city</a>
+                <a href= "country.php">country</a>
+                <a href= "customer.php">customer</a>
+                <a href= "film_actor.php">film_actor</a>
+                <a href= "film_category.php">film_category</a>
+                <a href= "film_text.php">film_text</a>
+                <a href= "film.php">film</a>
+                <a href= "inventory.php">inventory</a>
+                <a href= "language.php">language</a>
+                <a href= "payment.php">payment</a>
+                <a href= "rental.php">rental</a>
+                <a href= "staff.php">staff</a>
+                <a href= "store.php">store</a>
+                <a href= "payment&customer&staff.php">payment&customer&staff</a>
+                <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
+                <a href= "country&city&address.php">country&city&address</a>
+            </div>
+
+            <div class="menu">
+                <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
+            </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY ACTOR ID" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
@@ -82,7 +108,7 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['filmid'])&& !empty($_POST['title'])&& !empty($_POST['description'])){
-                            if($_POST['filmid'] > 0){
+                            if((is_numeric($_POST['filmid'])) && ($_POST['filmid'] > 0)){
                                 $filmid= $_POST['filmid'];
                                 $query= "SELECT film_id FROM film_text WHERE film_id = $filmid;";
                                 $result= mysqli_query($conn,$query);
@@ -101,17 +127,17 @@
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }
                             else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! FILM ID ENTERED ALREADY EXISTS")</script>';
                             }
                         }     
                         
                         else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID FILM ID ENTERED")</script>';
                                 }
                         }
 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! PLEASE FILL ALL FIELDS!")</script>';
                         }
                     }
                     
@@ -135,6 +161,7 @@
                     <?php
                     if(isset($_POST['update'])){
                         if(!empty($_POST['filmid'])&& !empty($_POST['title'])&& !empty($_POST['description'])){
+                            if((is_numeric($_POST['filmid'])) && ($_POST['filmid'] > 0)){
                             $filmid= $_POST['filmid'];
                             $query= "SELECT film_id FROM film_text  WHERE film_id = $filmid;";
                             $result= mysqli_query($conn,$query);
@@ -153,8 +180,11 @@
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! FILM ID ENTERED DOES NOT EXIST")</script>';
                             }
+                            }else{
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! INVALID FILM ID ENTERED")</script>';
+                            }  
                                 
                         }else{
                             echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
@@ -179,6 +209,7 @@
             <?php
                 if(isset($_POST['delete'])){
                     if(!empty($_POST['filmid'])){
+                         if((is_numeric($_POST['filmid'])) && ($_POST['filmid'] > 0)){
                         $filmid= $_POST['filmid'];
                         $query= "SELECT film_id FROM film_text WHERE film_id = $filmid;";
                         $result= mysqli_query($conn,$query);
@@ -192,12 +223,15 @@
                                 echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
 
                         }else{
-                            echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                            echo '<script> alert(" DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
                         }
                          echo("<meta http-equiv='refresh' content='1'>");
                            }elseif (mysqli_num_rows($result)==0){
-                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
-                        }
+                                echo '<script> alert("PREVIOUS DELETE FAILED! FILM ID ENTERED DOES NOT EXIST")</script>';
+                            }
+                        }else{
+                             echo '<script> alert("PREVIOUS DELETE FAILED! INVALID FILM ID ENTERED")</script>';
+                        } 
                             
                     }else{
                         echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
@@ -237,6 +271,14 @@
             function(){
                 document.querySelector('.delete').style.display= 'none';
             });
+
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "620px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
         </script>
     </body>
 </html>
