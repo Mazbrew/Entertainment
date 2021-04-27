@@ -93,9 +93,11 @@
                 
                                     $insert = "INSERT INTO film_actor VALUES('$actorid','$filmid','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
-                                    if (!empty($result)) {
+                                    if ($result) {
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
-                                    }    
+                                    }
+                                    else
+                                        echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
@@ -153,12 +155,12 @@
                                     $update = "UPDATE film_actor SET actor_id= '$actorid', film_id= '$filmid',  last_update= '$lastupdate' WHERE actor_id = $oldactorid AND film_id = $oldfilmid;";
                                     $result = mysqli_query($conn,$update); 
                                     
+                                    if($result)
                                     echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
-                                }else{
-                                    echo '<script> alert("PREVIOUS UPDATE FAILED! NEW IDS already exist")</script>';
-                                }
-                                
-                                echo("<meta http-equiv='refresh' content='1'>");
+                                    else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';  
+                            
+                                    echo("<meta http-equiv='refresh' content='1'>");
                             }else{
                                 echo '<script> alert("PREVIOUS UPDATE FAILED! OLD IDS do not exist")</script>';
                             }
@@ -167,6 +169,7 @@
                             echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
                         }
                     }
+                }
                     ?>
 
                 </form>
@@ -215,9 +218,6 @@
                     }
 
                 }
-                        //else
-                            //echo '<script> alert("NO DATA IS DELETED!")</script>';
-                    //}
                     
             ?>
         </div>
@@ -254,16 +254,6 @@
                 document.querySelector('.delete').style.display= 'none';
             });
             
-            function confirmDelete(){
-                var $confirm;
-                
-                if (!confirm("ARE YOU SURE TO DELETE THIS ROW?")){
-                    $confirm=0;
-                    
-                }else{
-                    $confirm=1;
-                }
-            }
         </script>
     </body>
 </html>
