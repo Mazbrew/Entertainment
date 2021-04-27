@@ -46,7 +46,7 @@
                 <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
             </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ACTOR ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY LANGUAGE ID" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
@@ -106,39 +106,34 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['languageid'])&& !empty($_POST['name'])){
-                            if($_POST['languageid'] > 0){
-                                if((is_numeric($_POST['languageid'])) && ($_POST['languageid'] > 0)){
-                        $languageid= $_POST['languageid'];
-                        $query= "SELECT language_id FROM language WHERE language_id = $languageid;";
-                        $result= mysqli_query($conn,$query);
-
-                            if(mysqli_num_rows($result)==0){
+                            if((is_numeric($_POST['languageid'])) && ($_POST['languageid'] > 0)){
                                 $languageid= $_POST['languageid'];
-                                $name= $_POST['name'];
-                                $lastupdate= date('Y-m-d H:i:s');
-                                $insert = "INSERT INTO language VALUES('$languageid','$name','$lastupdate');";
-                                $result = mysqli_query($conn,$insert);
-                                if ($result) {
+                                $query= "SELECT language_id FROM language WHERE language_id = $languageid;";
+                                $result= mysqli_query($conn,$query);
+
+                                if(mysqli_num_rows($result)==0){
+                                    $languageid= $_POST['languageid'];
+                                    $name= $_POST['name'];
+                                    $lastupdate= date('Y-m-d H:i:s');
+                                    $insert = "INSERT INTO language VALUES('$languageid','$name','$lastupdate');";
+                                    $result = mysqli_query($conn,$insert);
+                                    if ($result) {
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                     }
                                     else
-                                        echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
+                                         echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
+                                       
                                     echo("<meta http-equiv='refresh' content='1'>");
-                                }
-                                else{
+                                }else{
                                     echo '<script> alert("PREVIOUS INSERT FAILED! LANGUAGE ID ENTERED ALREADY EXISTS")</script>';
                                 }  
+                            }else{
+                                 echo '<script> alert("PREVIOUS INSERT FAILED! INVALID LANGUAGE ID ENTERED")</script>';
                             }
-                            else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID LANGUAGE ID ENTERED")</script>';
-                            }
-                        } 
-                        else{
+                        }else{
                             echo '<script> alert("PREVIOUS INSERT FAILED! PLEASE FILL ALL FIELDS")</script>';
                         }
                     }
-                }
-                    
                     ?>
                 </form>
             </div>
