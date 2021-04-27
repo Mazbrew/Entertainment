@@ -19,16 +19,42 @@
         </div>
 
         <div class="bar">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href= "actor.php">actor</a>
+                <a href= "address.php">address</a>
+                <a href= "category.php">category</a>
+                <a href= "city.php">city</a>
+                <a href= "country.php">country</a>
+                <a href= "customer.php">customer</a>
+                <a href= "film_actor.php">film_actor</a>
+                <a href= "film_category.php">film_category</a>
+                <a href= "film_text.php">film_text</a>
+                <a href= "film.php">film</a>
+                <a href= "inventory.php">inventory</a>
+                <a href= "language.php">language</a>
+                <a href= "payment.php">payment</a>
+                <a href= "rental.php">rental</a>
+                <a href= "staff.php">staff</a>
+                <a href= "store.php">store</a>
+                <a href= "payment&customer&staff.php">payment&customer&staff</a>
+                <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
+                <a href= "country&city&address.php">country&city&address</a>
+            </div>
+
+            <div class="menu">
+                <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
+            </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY PAYMENT ID" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
-            <button id="insert" class= "button">INSERT</button>
-            <button id="update" class= "button">UPDATE</button>
-            <button id="delete" class= "button">DELETE</button>
-        </div>
+                <button id="insert" class= "button">INSERT</button>
+                <button id="update" class= "button">UPDATE</button>
+                <button id="delete" class= "button">DELETE</button>
+            </div>
 
         <?php
             echo "<table><thead><tr><th>Payment_id</th><th>Customer_id</th><th>Staff_id</th><th>Rental_id</th>
@@ -92,9 +118,9 @@
 
                     <?php
                     if(isset($_POST['insert'])){
-                        if(!empty($_POST['paymentid'])&& !empty($_POST['customerid'])&& !empty($_POST['staffid'])&& !empty($_POST['rentalid'])
+                        if(!empty($_POST['paymentid'])&& !empty($_POST['customerid'])&& !empty($_POST['staffid'])
                         && !empty($_POST['amount'])&& !empty($_POST['paymentdate'])){
-                            if($_POST['paymentid'] > 0){
+                            if((is_numeric($_POST['storeid']))&&$_POST['paymentid'] > 0){
                                 $paymentid= $_POST['paymentid'];
                                 $query= "SELECT payment_id FROM payment WHERE payment_id = $paymentid;";
                                 $result= mysqli_query($conn,$query);
@@ -113,20 +139,20 @@
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                     }
                                     else
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CUSTOMER ID, STAFF ID OR RENTAL ID ENTERED DOES NOT EXIST, PLEASE CHECK THE CUSTOMER, STAFF AND RENTAL TABLES FOR AN EXISTING CUSTOMER ID, STAFF ID AND RENTAL ID RESPECTIVELY")</script>'; 
 
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! PAYMENT ID ENTERED ALREADY EXISTS")</script>';
                                 }  
                             }
                             else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID PAYMENT ID ENTERED")</script>';
                             }
                         } 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR RENTAL ID")</script>';
                         }
                     }
                     
@@ -155,8 +181,9 @@
 
                     <?php
                     if(isset($_POST['update'])){
-                        if(!empty($_POST['paymentid'])&& !empty($_POST['customerid'])&& !empty($_POST['staffid'])&& !empty($_POST['rentalid'])
+                        if(!empty($_POST['paymentid'])&& !empty($_POST['customerid'])&& !empty($_POST['staffid'])
                         && !empty($_POST['amount'])&& !empty($_POST['paymentdate'])){
+                            if((is_numeric($_POST['storeid']))&&$_POST['paymentid'] > 0){
                             $paymentid= $_POST['paymentid'];
                             $query= "SELECT payment_id FROM payment WHERE payment_id = $paymentid;";
                             $result= mysqli_query($conn,$query);
@@ -176,15 +203,19 @@
                                 if($result)
                                     echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
                                 else
-                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CUSTOMER ID, STAFF ID OR RENTAL ID ENTERED DOES NOT EXIST, PLEASE CHECK THE CUSTOMER, STAFF AND RENTAL TABLES FOR AN EXISTING CUSTOMER ID, STAFF ID AND RENTAL ID RESPECTIVELY")</script>';
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! PAYMENT ID ENTERED DOES NOT EXIST")</script>';
                             }
+                        }else{
+                            echo '<script> alert("PREVIOUS INSERT FAILED! INVALID PAYMENT ID ENTERED")</script>';
+                        }
+
                                 
                         }else{
-                            echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS UPDATE FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR RENTAL ID")</script>';
                         }
                     }
                     ?>
@@ -206,6 +237,7 @@
             <?php
                 if(isset($_POST['delete'])){
                     if(!empty($_POST['paymentid'])){
+                        if((is_numeric($_POST['storeid']))&&$_POST['paymentid'] > 0){
                         $paymentid= $_POST['paymentid'];
                         $query= "SELECT payment_id FROM payment WHERE payment_id = $paymentid;";
                         $result= mysqli_query($conn,$query);
@@ -222,10 +254,12 @@
                             }
                                 
                             echo("<meta http-equiv='refresh' content='1'>");
-                        }elseif (mysqli_num_rows($result)==0){
-                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
+                        }else{
+                            echo '<script> alert("PREVIOUS DELETE FAILED! PAYMENT ID ENTERED DOES NOT EXIST")</script>';
                         }
-                                
+                    }else{
+                        echo '<script> alert("PREVIOUS DELETE FAILED! INVALID PAYMENT ID ENTERED")</script>';
+                    }            
                     }else{
                         echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
                     }
@@ -264,6 +298,13 @@
             function(){
                 document.querySelector('.delete').style.display= 'none';
             });
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "620px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
         </script>
     </body>
 </html>
