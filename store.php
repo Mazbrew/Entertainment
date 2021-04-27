@@ -78,8 +78,7 @@
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
-                    echo "<tr><td>" . $row['rental_id'] . "</td><td>" . $row['rental_date'] . "</td><td>" . $row['inventory_id'] . "</td>
-                    <td>" . $row['customer_id'] . "</td><td>" . $row['return_date'] . "</td><td>" . $row['staff_id'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
+                    echo "<tr><td>" . $row['store_id'] . "</td><td>" . $row['address_id'] . "</td><td>" . $row['last_update'] . "</td></tr>";   
                 }
 
             }else {
@@ -135,7 +134,7 @@
                             }
                         } 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! PLEASE FILL ALL FIELDS")</script>';
                         }
                     }
                     
@@ -166,7 +165,7 @@
                                 $storeid= $_POST['storeid'];
                                 $addressid= $_POST['addressid'];
                                 $lastupdate= date('Y-m-d H:i:s');
-                                $update = "UPDATE store SET addressid= '$addressid',  last_update= '$lastupdate' WHERE store_id = $storeid;";
+                                $update = "UPDATE store SET address_id= '$addressid',  last_update= '$lastupdate' WHERE store_id = $storeid;";
                                 $result = mysqli_query($conn,$update); 
                                 
                                 if($result)
@@ -183,7 +182,7 @@
                             echo '<script> alert("PREVIOUS UPDATE FAILED! INVALID STORE ID ENTERED")</script>';
                         }
                     }else{
-                            echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS UPDATE FAILED! PLEASE FILL ALL FIELDS")</script>';
                         }
                     }
                     ?>
@@ -231,7 +230,7 @@
                         }
                     }
                     else{
-                            echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS DELETE FAILED! PLEASE FILL ALL FIELDS")</script>';
                     }
                 }
             ?>
