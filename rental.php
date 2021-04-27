@@ -19,16 +19,42 @@
         </div>
 
         <div class="bar">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href= "actor.php">actor</a>
+                <a href= "address.php">address</a>
+                <a href= "category.php">category</a>
+                <a href= "city.php">city</a>
+                <a href= "country.php">country</a>
+                <a href= "customer.php">customer</a>
+                <a href= "film_actor.php">film_actor</a>
+                <a href= "film_category.php">film_category</a>
+                <a href= "film_text.php">film_text</a>
+                <a href= "film.php">film</a>
+                <a href= "inventory.php">inventory</a>
+                <a href= "language.php">language</a>
+                <a href= "payment.php">payment</a>
+                <a href= "rental.php">rental</a>
+                <a href= "staff.php">staff</a>
+                <a href= "store.php">store</a>
+                <a href= "payment&customer&staff.php">payment&customer&staff</a>
+                <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
+                <a href= "country&city&address.php">country&city&address</a>
+            </div>
+
+            <div class="menu">
+                <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
+            </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY RENTAL ID" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
-            <button id="insert" class= "button">INSERT</button>
-            <button id="update" class= "button">UPDATE</button>
-            <button id="delete" class= "button">DELETE</button>
-        </div>
+                <button id="insert" class= "button">INSERT</button>
+                <button id="update" class= "button">UPDATE</button>
+                <button id="delete" class= "button">DELETE</button>
+            </div>
 
         <?php
             echo "<table><thead><tr><th>Rental_id</th><th>Rental_date</th><th>Inventory_id</th><th>Customer_id</th>
@@ -93,8 +119,8 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['rentalid'])&& !empty($_POST['rentaldate'])&& !empty($_POST['inventoryid'])&& !empty($_POST['customerid'])
-                        && !empty($_POST['returndate'])&& !empty($_POST['staffid'])){
-                            if($_POST['rentalid'] > 0){
+                        && !empty($_POST['staffid'])){
+                            if((is_numeric($_POST['rentalid'])) &&$_POST['rentalid'] > 0){
                                 $rentalid= $_POST['rentalid'];
                                 $query= "SELECT rental_id FROM rental WHERE rental_id = $rentalid;";
                                 $result= mysqli_query($conn,$query);
@@ -113,20 +139,20 @@
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                     }
                                     else
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! INVENTORY ID, CUSTOMER ID OR STAFF ID ENTERED DOES NOT EXIST, PLEASE CHECK THE INVENTORY, CUSTOMER AND STAFF TABLES FOR AN EXISTING INVENTORY ID, CUSTOMER ID AND STAFF ID RESPECTIVELY")</script>'; 
 
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! RENTAL ID ENTERED ALREADY EXISTS")</script>';
                                 }  
                             }
                             else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID RENTAL ID ENTERED")</script>';
                             }
                         } 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR RETURN DATE")</script>';
                         }
                     }
                     
@@ -156,35 +182,40 @@
                     <?php
                     if(isset($_POST['update'])){
                         if(!empty($_POST['rentalid'])&& !empty($_POST['rentaldate'])&& !empty($_POST['inventoryid'])&& !empty($_POST['customerid'])
-                        && !empty($_POST['returndate'])&& !empty($_POST['staffid'])){
-                            $rentalid= $_POST['rentalid'];
-                            $query= "SELECT rental_id FROM rental WHERE rental_id = $rentalid;";
-                            $result= mysqli_query($conn,$query);
-
-                            if(mysqli_num_rows($result)==1){
+                        && !empty($_POST['staffid'])){
+                                if((is_numeric($_POST['rentalid'])) &&$_POST['rentalid'] > 0){
                                 $rentalid= $_POST['rentalid'];
-                                $rentaldate= $_POST['rentaldate'];
-                                $inventoryid= $_POST['inventoryid'];
-                                $customerid= $_POST['customerid'];
-                                $returndate= $_POST['returndate'];
-                                $staffid= $_POST['staffid'];
-                                $lastupdate= date('Y-m-d H:i:s');
-                                $update = "UPDATE rental SET rental_date= '$rentaldate', inventory_id= '$inventoryid', customer_id = '$customerid', 
-                                return_date= '$returndate', staff_id= '$staffid', last_update= '$lastupdate' WHERE rental_id = $rentalid;";
-                                $result = mysqli_query($conn,$update); 
-                                
-                                if($result)
-                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
-                                else
-                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
-                                
-                                echo("<meta http-equiv='refresh' content='1'>");
-                            }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
-                            }
+                                $query= "SELECT rental_id FROM rental WHERE rental_id = $rentalid;";
+                                $result= mysqli_query($conn,$query);
+
+                                if(mysqli_num_rows($result)==1){
+                                    $rentalid= $_POST['rentalid'];
+                                    $rentaldate= $_POST['rentaldate'];
+                                    $inventoryid= $_POST['inventoryid'];
+                                    $customerid= $_POST['customerid'];
+                                    $returndate= $_POST['returndate'];
+                                    $staffid= $_POST['staffid'];
+                                    $lastupdate= date('Y-m-d H:i:s');
+                                    $update = "UPDATE rental SET rental_date= '$rentaldate', inventory_id= '$inventoryid', customer_id = '$customerid', 
+                                    return_date= '$returndate', staff_id= '$staffid', last_update= '$lastupdate' WHERE rental_id = $rentalid;";
+                                    $result = mysqli_query($conn,$update); 
+                                    
+                                    if($result)
+                                        echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                    else
+                                        echo '<script> alert("PREVIOUS UPDATE FAILED! INVENTORY ID, CUSTOMER ID OR STAFF ID ENTERED DOES NOT EXIST, PLEASE CHECK THE INVENTORY, CUSTOMER AND STAFF TABLES FOR AN EXISTING INVENTORY ID, CUSTOMER ID AND STAFF ID RESPECTIVELY")</script>';
+                                    
+                                    echo("<meta http-equiv='refresh' content='1'>");
+                                }else{
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! RENTAL ID ENTERED DOES NOT EXIST")</script>';
+                            
+                                }
+                                }else{
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! INVALID RENTAL ID ENTERED")</script>';
+                                    }   
                                 
                         }else{
-                            echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS UPDATE FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR RETURN DATE")</script>';
                         }
                     }
                     ?>
@@ -206,6 +237,7 @@
             <?php
                 if(isset($_POST['delete'])){
                     if(!empty($_POST['rentalid'])){
+                        if((is_numeric($_POST['rentalid'])) &&$_POST['rentalid'] > 0){
                         $rentalid= $_POST['rentalid'];
                         $query= "SELECT rental_id FROM rental WHERE rental_id = $rentalid;";
                         $result= mysqli_query($conn,$query);
@@ -222,9 +254,12 @@
                             }
                                 
                             echo("<meta http-equiv='refresh' content='1'>");
-                        }elseif (mysqli_num_rows($result)==0){
-                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
+                        }else{
+                            echo '<script> alert("PREVIOUS DELETE FAILED! RENTAL ID ENTERED DOES NOT EXIST")</script>';
                         }
+                    }else{
+                        echo '<script> alert("PREVIOUS DELETE FAILED! INVALID RENTAL ID ENTERED")</script>';
+                    }
                                 
                     }else{
                         echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
@@ -264,6 +299,13 @@
             function(){
                 document.querySelector('.delete').style.display= 'none';
             });
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "620px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
         </script>
     </body>
 </html>
