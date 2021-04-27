@@ -194,8 +194,14 @@
                             $result= mysqli_query($conn,$query);
 
                             if(mysqli_num_rows($result)==1){
+                                $addressid= $_POST['addressid'];
                                 $delete = "DELETE FROM address WHERE address_id='$addressid';";
-                                $result = mysqli_query($conn,$delete);  
+                                $result = mysqli_query($conn,$delete);
+                                if($result){
+                                    echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                                }else{
+                                    echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                                }  
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{

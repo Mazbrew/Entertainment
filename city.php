@@ -179,7 +179,12 @@
                         if(mysqli_num_rows($result)==1){
                             $cityid= $_POST['cityid'];
                             $delete = "DELETE FROM city WHERE city_id= '$cityid'; ";
-                            $result = mysqli_query($conn,$delete); 
+                            $result = mysqli_query($conn,$delete);
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                            }else{
+                                echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                            } 
                             
                             echo("<meta http-equiv='refresh' content='1'>");
                         }else{

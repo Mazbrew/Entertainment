@@ -89,7 +89,12 @@
                                 $country= $_POST['country'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "INSERT INTO country VALUES('$countryid','$country','$lastupdate');";
-                                $result = mysqli_query($conn,$insert); 
+                                $result = mysqli_query($conn,$insert);
+                                if ($result) {
+                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                }
+                                else
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -127,7 +132,11 @@
                                 $country= $_POST['country'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE country SET country= '$country', last_update= '$lastupdate' WHERE country_id = $countryid;";
-                                $result = mysqli_query($conn,$update); 
+                                $result = mysqli_query($conn,$update);
+                                if($result)
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -150,7 +159,7 @@
                 <form action= "" method = "post">
                     <p>Country ID:</p>
                         <input type="text" name="countryid" onkeydown="return event.key != 'Enter'" style= "display:block;">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
@@ -164,7 +173,12 @@
                         if(mysqli_num_rows($result)==1){
                             $countryid= $_POST['countryid'];
                             $delete = "DELETE FROM country WHERE country_id= '$countryid'; ";
-                            $result = mysqli_query($conn,$delete); 
+                            $result = mysqli_query($conn,$delete);
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                            }else{
+                                echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                            } 
                             
                             echo("<meta http-equiv='refresh' content='1'>");
                         }else{

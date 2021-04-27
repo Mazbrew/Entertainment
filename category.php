@@ -172,7 +172,12 @@
                         if(mysqli_num_rows($result)==1){
                             $categoryid= $_POST['categoryid'];
                             $insert = "DELETE FROM category WHERE category_id='$categoryid';";
-                            $result = mysqli_query($conn,$insert); 
+                            $result = mysqli_query($conn,$insert);
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                            }else{
+                                echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                            } 
                             
                             echo("<meta http-equiv='refresh' content='1'>");
                         }else{
