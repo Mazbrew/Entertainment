@@ -96,9 +96,11 @@
                                     $lastname= strtoupper($lastname);
                                     $insert = "INSERT INTO actor VALUES('$actorid','$firstname','$lastname','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
-                                    if (!empty($result)) {
+                                    if ($result) {
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
-                                    }    
+                                    }
+                                    else
+                                        echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
@@ -146,7 +148,10 @@
                                 $update = "UPDATE actor SET first_name= '$firstname', last_name= '$lastname', last_update= '$lastupdate' WHERE actor_id = $actorid;";
                                 $result = mysqli_query($conn,$update); 
                                 
-                                echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                if($result)
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{

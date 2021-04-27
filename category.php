@@ -89,7 +89,12 @@
                                 $name= $_POST['name'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "INSERT INTO category VALUES('$categoryid','$name','$lastupdate');";
-                                $result = mysqli_query($conn,$insert); 
+                                $result = mysqli_query($conn,$insert);
+                                if ($result) {
+                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                }
+                                else
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -127,7 +132,11 @@
                                 $name= $_POST['name'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "UPDATE category SET name='$name',last_update='$lastupdate' WHERE category_id='$categoryid' ";
-                                $result = mysqli_query($conn,$insert); 
+                                $result = mysqli_query($conn,$insert);
+                                if($result)
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{

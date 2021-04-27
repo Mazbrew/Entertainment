@@ -92,7 +92,12 @@
                                 $countryid= $_POST['countryid'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "INSERT INTO city VALUES('$cityid','$city','$countryid','$lastupdate');";
-                                $result = mysqli_query($conn,$insert); 
+                                $result = mysqli_query($conn,$insert);
+                                if ($result) {
+                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                }
+                                else
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -133,7 +138,11 @@
                                 $countryid= $_POST['countryid'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE city SET city= '$city', country_id= '$countryid', last_update= '$lastupdate' WHERE city_id = $cityid;";
-                                $result = mysqli_query($conn,$update); 
+                                $result = mysqli_query($conn,$update);
+                                if($result)
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{

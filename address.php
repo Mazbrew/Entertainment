@@ -101,7 +101,12 @@
                                 $phone = $_POST['phone'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "INSERT INTO address VALUES('$addressid','$address','$district','$cityid','$postalcode','$phone','$lastupdate');";
-                                $result = mysqli_query($conn,$insert); 
+                                $result = mysqli_query($conn,$insert);
+                                if ($result) {
+                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                }
+                                else
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -151,7 +156,11 @@
                                 $phone = $_POST['phone'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE address SET address='$address',district='$district',city_id='$cityid',postal_code='$postalcode',phone='$phone',last_update='$lastupdate' WHERE address_id='$addressid';";
-                                $result = mysqli_query($conn,$update);  
+                                $result = mysqli_query($conn,$update);
+                                if($result)
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';  
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
