@@ -137,6 +137,7 @@
                             echo '<script> alert("PREVIOUS INSERT FAILED! PLEASE FILL ALL FIELDS")</script>';
                         }
                     }
+                }
                     
                     ?>
                 </form>

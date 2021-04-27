@@ -133,7 +133,7 @@
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                     }
                                     else{
-                                        echo '<script> alert("PREVIOUS INSERT FAILED! CITY ID ENTERED DOEST NOT EXIST, PLEASE CHECK THE CITY TABLE FOR AN EXISTING CITY ID")</script>'; 
+                                        echo '<script> alert("PREVIOUS INSERT FAILED! CITY ID ENTERED DOES NOT EXIST, PLEASE CHECK THE CITY TABLE FOR AN EXISTING CITY ID")</script>'; 
                                     }
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }else{

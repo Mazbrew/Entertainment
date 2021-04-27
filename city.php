@@ -172,7 +172,7 @@
                                     if($result)
                                         echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
                                     else
-                                        echo '<script> alert("PREVIOUS UPDATE FAILED! COUNTRY ID ENTERED DOEST NOT EXIST, PLEASE CHECK THE COUNTRY TABLE FOR AN EXISTING COUNTRY ID")</script>';
+                                        echo '<script> alert("PREVIOUS UPDATE FAILED! COUNTRY ID ENTERED DOES NOT EXIST, PLEASE CHECK THE COUNTRY TABLE FOR AN EXISTING COUNTRY ID")</script>';
                                 
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }else{
