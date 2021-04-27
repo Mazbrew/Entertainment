@@ -131,7 +131,7 @@
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! ACTOR ID ENTERED ALREADY EXISTS")</script>';
                                 }  
                             }
                             else{
