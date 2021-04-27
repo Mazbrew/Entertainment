@@ -19,8 +19,34 @@
         </div>
 
         <div class="bar">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href= "actor.php">actor</a>
+                <a href= "address.php">address</a>
+                <a href= "category.php">category</a>
+                <a href= "city.php">city</a>
+                <a href= "country.php">country</a>
+                <a href= "customer.php">customer</a>
+                <a href= "film_actor.php">film_actor</a>
+                <a href= "film_category.php">film_category</a>
+                <a href= "film_text.php">film_text</a>
+                <a href= "film.php">film</a>
+                <a href= "inventory.php">inventory</a>
+                <a href= "language.php">language</a>
+                <a href= "payment.php">payment</a>
+                <a href= "rental.php">rental</a>
+                <a href= "staff.php">staff</a>
+                <a href= "store.php">store</a>
+                <a href= "payment&customer&staff.php">payment&customer&staff</a>
+                <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
+                <a href= "country&city&address.php">country&city&address</a>
+            </div>
+
+            <div class="menu">
+                <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
+            </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY ADDRESS ID" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
@@ -87,34 +113,38 @@
 
                     <?php
                     if(isset($_POST['insert'])){
-                        if(!empty($_POST['addressid'])&& !empty($_POST['address'])&& !empty($_POST['district'])&& !empty($_POST['cityid'])&& !empty($_POST['postalcode'])&& !empty($_POST['phone'])){
-                            $addressid= $_POST['addressid'];
-                            $query= "SELECT address_id FROM address WHERE address_id = $addressid;";
-                            $result= mysqli_query($conn,$query);
-
-                            if(mysqli_num_rows($result)==0){
+                        if(!empty($_POST['addressid']) && !empty($_POST['address'])&& !empty($_POST['cityid'])){
+                            if((is_numeric($_POST['addressid'])) && ($_POST['addressid'] > 0)){
                                 $addressid= $_POST['addressid'];
-                                $address= $_POST['address'];
-                                $district= $_POST['district'];
-                                $cityid= $_POST['cityid'];
-                                $postalcode= $_POST['postalcode'];
-                                $phone = $_POST['phone'];
-                                $lastupdate= date('Y-m-d H:i:s');
-                                $insert = "INSERT INTO address VALUES('$addressid','$address','$district','$cityid','$postalcode','$phone','$lastupdate');";
-                                $result = mysqli_query($conn,$insert);
-                                if ($result) {
-                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                $query= "SELECT address_id FROM address WHERE address_id = $addressid;";
+                                $result= mysqli_query($conn,$query);
+
+                                if(mysqli_num_rows($result)==0){
+                                    $addressid= $_POST['addressid'];
+                                    $address= $_POST['address'];
+                                    $district= $_POST['district'];
+                                    $cityid= $_POST['cityid'];
+                                    $postalcode= $_POST['postalcode'];
+                                    $phone = $_POST['phone'];
+                                    $lastupdate= date('Y-m-d H:i:s');
+                                    $insert = "INSERT INTO address VALUES('$addressid','$address','$district','$cityid','$postalcode','$phone','$lastupdate');";
+                                    $result = mysqli_query($conn,$insert);
+                                    if ($result) {
+                                        echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                    }
+                                    else{
+                                        echo '<script> alert("PREVIOUS INSERT FAILED! CITY ID ENTERED DOEST NOT EXIST, PLEASE CHECK THE CITY TABLE FOR AN EXISTING CITY ID")</script>'; 
+                                    }
+                                    echo("<meta http-equiv='refresh' content='1'>");
+                                }else{
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! ADDRESS ID ENTERED ALREADY EXISTS")</script>';
                                 }
-                                else
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
-                                
-                                echo("<meta http-equiv='refresh' content='1'>");
                             }else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ADDRESS ID ENTERED")</script>';
                             }
                                 
                         }else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR DISTRICT, POSTAL CODE AND PHONE")</script>';
                         }
                     }
                     ?>
@@ -142,33 +172,37 @@
 
                     <?php
                     if(isset($_POST['update'])){
-                        if(!empty($_POST['addressid'])&& !empty($_POST['address'])&& !empty($_POST['district'])&& !empty($_POST['cityid'])&& !empty($_POST['postalcode'])&& !empty($_POST['phone'])){
-                            $addressid= $_POST['addressid'];
-                            $query= "SELECT address_id FROM address WHERE address_id = $addressid;";
-                            $result= mysqli_query($conn,$query);
-
-                            if(mysqli_num_rows($result)==1){
+                        if(!empty($_POST['addressid']) && !empty($_POST['address']) && !empty($_POST['cityid'])){
+                            if((is_numeric($_POST['addressid'])) && ($_POST['addressid'] > 0)){
                                 $addressid= $_POST['addressid'];
-                                $address= $_POST['address'];
-                                $district= $_POST['district'];
-                                $cityid= $_POST['cityid'];
-                                $postalcode= $_POST['postalcode'];
-                                $phone = $_POST['phone'];
-                                $lastupdate= date('Y-m-d H:i:s');
-                                $update = "UPDATE address SET address='$address',district='$district',city_id='$cityid',postal_code='$postalcode',phone='$phone',last_update='$lastupdate' WHERE address_id='$addressid';";
-                                $result = mysqli_query($conn,$update);
-                                if($result)
-                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
-                                else
-                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';  
+                                $query= "SELECT address_id FROM address WHERE address_id = $addressid;";
+                                $result= mysqli_query($conn,$query);
+
+                                if(mysqli_num_rows($result)==1){
+                                    $addressid= $_POST['addressid'];
+                                    $address= $_POST['address'];
+                                    $district= $_POST['district'];
+                                    $cityid= $_POST['cityid'];
+                                    $postalcode= $_POST['postalcode'];
+                                    $phone = $_POST['phone'];
+                                    $lastupdate= date('Y-m-d H:i:s');
+                                    $update = "UPDATE address SET address='$address',district='$district',city_id='$cityid',postal_code='$postalcode',phone='$phone',last_update='$lastupdate' WHERE address_id='$addressid';";
+                                    $result = mysqli_query($conn,$update);
+                                    if($result)
+                                        echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                    else
+                                        echo '<script> alert("PREVIOUS UPDATE FAILED! CITY ID ENTERED DOEST NOT EXIST, PLEASE CHECK THE CITY TABLE FOR AN EXISTING CITY ID")</script>';  
                                 
-                                echo("<meta http-equiv='refresh' content='1'>");
+                                    echo("<meta http-equiv='refresh' content='1'>");
+                                }else{
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! ADDRESS ID ENTERED DOES NOT EXIST")</script>';
+                                }
                             }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! INVALID ADDRESS ID ENTERED")</script>';
                             }
                                 
                         }else{
-                            echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS UPDATE FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR DISTRICT, POSTAL CODE AND PHONE")</script>';
                         }
                     }
                     ?>
@@ -187,8 +221,9 @@
             </div>
 
             <?php
-                    if(isset($_POST['delete'])){
-                        if(!empty($_POST['addressid'])){
+                if(isset($_POST['delete'])){
+                    if(!empty($_POST['addressid'])){
+                        if((is_numeric($_POST['addressid'])) && ($_POST['addressid'] > 0)){
                             $addressid= $_POST['addressid'];
                             $query= "SELECT address_id FROM address WHERE address_id = $addressid;";
                             $result= mysqli_query($conn,$query);
@@ -205,14 +240,17 @@
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
-                                echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                                echo '<script> alert("PREVIOUS DELETE FAILED! ADDRESS ID ENTERED DOES NOT EXIST")</script>';
                             }
-                                
                         }else{
-                            echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                             echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ADDRESS ID ENTERED")</script>';
                         }
+                                
+                     }else{
+                        echo '<script> alert("PREVIOUS DELETE FAILED! PLEASE FILL ALL FIELDS")</script>';
                     }
-                    ?>
+                }
+            ?>
         </div>
 
         <script>
@@ -246,6 +284,14 @@
             function(){
                 document.querySelector('.delete').style.display= 'none';
             });
+            
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "620px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
         </script>
     </body>
 </html>
