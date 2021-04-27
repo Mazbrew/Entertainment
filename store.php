@@ -204,8 +204,8 @@
 
             <?php
                 if(isset($_POST['delete'])){
-                    if ((is_numeric($_POST['storeid'])) && ($_POST['storeid'] > 0)){
                         if(!empty($_POST['storeid'])){
+                            if ((is_numeric($_POST['storeid'])) && ($_POST['storeid'] > 0)){
                             $storeid= $_POST['storeid'];
                             $query= "SELECT store_id FROM store WHERE store_id = $storeid;";
                             $result= mysqli_query($conn,$query);
