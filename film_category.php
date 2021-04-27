@@ -91,9 +91,11 @@
                                     $lastupdate= date('Y-m-d H:i:s');
                                     $insert = "INSERT INTO film_category VALUES('$filmid','$categoryid','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
-                                if (!empty($result)) {
+                                if ($result) {
                                     echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
-                                }    
+                                }
+                                else
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }
                             else{
@@ -138,7 +140,10 @@
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE film_category SET  category_id= '$categoryid', last_update= '$lastupdate' WHERE film_id = $filmid;";
                                 $result = mysqli_query($conn,$update); 
-                                echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                if($result)
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{

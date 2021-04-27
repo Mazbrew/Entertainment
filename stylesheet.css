@@ -116,6 +116,7 @@ th{
     top: 0;
     color: white;
     animation:fading 1s;
+    max-width: 120px;
 }
 
 td{
