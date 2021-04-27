@@ -19,19 +19,45 @@
         </div>
 
         <div class="bar">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href= "actor.php">actor</a>
+                <a href= "address.php">address</a>
+                <a href= "category.php">category</a>
+                <a href= "city.php">city</a>
+                <a href= "country.php">country</a>
+                <a href= "customer.php">customer</a>
+                <a href= "film_actor.php">film_actor</a>
+                <a href= "film_category.php">film_category</a>
+                <a href= "film_text.php">film_text</a>
+                <a href= "film.php">film</a>
+                <a href= "inventory.php">inventory</a>
+                <a href= "language.php">language</a>
+                <a href= "payment.php">payment</a>
+                <a href= "rental.php">rental</a>
+                <a href= "staff.php">staff</a>
+                <a href= "store.php">store</a>
+                <a href= "payment&customer&staff.php">payment&customer&staff</a>
+                <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
+                <a href= "country&city&address.php">country&city&address</a>
+            </div>
+
+            <div class="menu">
+                <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
+            </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY STAFF ID" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
-            <button id="insert" class= "button">INSERT</button>
-            <button id="update" class= "button">UPDATE</button>
-            <button id="delete" class= "button">DELETE</button>
-        </div>
+                <button id="insert" class= "button">INSERT</button>
+                <button id="update" class= "button">UPDATE</button>
+                <button id="delete" class= "button">DELETE</button>
+            </div>
 
         <?php
-            echo "<table><thead><tr><th>Staff_id</th><th>First_name</th><th>Last_name</th><th>Address_id</th>
+            echo "<table style='table-layout:auto;max-width:100px;'><thead><tr><th>Staff_id</th><th>First_name</th><th>Last_name</th><th>Address_id</th>
             <th>Picture</th><th>Email</th><th>Store_id</th><th>Active</th><th>Username</th><th>Password</th><th>Last_update</th></thead><tbody>"; 
             if (isset($_POST['search'])){
                 
@@ -91,7 +117,7 @@
                     <p>Address ID:</p>
                         <input type="text" name="addressid" onkeydown="return event.key != 'Enter'">
                     <p>Picture:</p>
-                        <input type="file" name="picture" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="picture" onkeydown="return event.key != 'Enter'">
                     <p>Email:</p>
                         <input type="text" name="email" onkeydown="return event.key != 'Enter'">
                     <p>Store ID:</p>
@@ -108,8 +134,8 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['staffid'])&& !empty($_POST['firstname'])&& !empty($_POST['lastname'])&& !empty($_POST['addressid'])
-                        && !empty($_POST['picture'])&& !empty($_POST['email'])&& !empty($_POST['storeid'])&& !empty($_POST['active'])&& !empty($_POST['username'])&& !empty($_POST['password'])){
-                            if($_POST['staffid'] > 0){
+                        && !empty($_POST['email'])&& !empty($_POST['storeid'])&& ($_POST['active']==1 || $_POST['active']==0)&& !empty($_POST['username'])){
+                            if((is_numeric($_POST['staffid'])) &&$_POST['staffid'] > 0){
                                 $staffid= $_POST['staffid'];
                                 $query= "SELECT staff_id FROM staff WHERE staff_id = $staffid;";
                                 $result= mysqli_query($conn,$query);
@@ -128,27 +154,27 @@
                                     $lastupdate= date('Y-m-d H:i:s');
                                     $firstname= strtoupper($firstname);
                                     $lastname= strtoupper($lastname);
-                                    $insert = "INSERT INTO staff VALUES('$staffid','$firstname','$lastname','$addressid',CAST('$picture' AS VARBINARY(MAX)),'$email',
+                                    $insert = "INSERT INTO staff VALUES('$staffid','$firstname','$lastname','$addressid','$picture','$email',
                                     '$storeid','$active','$username','$password','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
                                     if ($result) {
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                     }
                                     else
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! ADDRESS ID OR STORE ID ENTERED DOES NOT EXIST, PLEASE CHECK THE ADDRESS AND STORE TABLES FOR AN EXISTING ADDRESS ID AND STORE ID RESPECTIVELY")</script>'; 
 
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! STAFF ID ENTERED ALREADY EXISTS")</script>';
                                 }  
                             }
                             else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID STAFF ID ENTERED")</script>';
                             }
                         } 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PICTURE AND PASSWORD")</script>';
                         }
                     }
                     
@@ -170,7 +196,7 @@
                     <p>Address ID:</p>
                         <input type="text" name="addressid" onkeydown="return event.key != 'Enter'">
                     <p>Picture:</p>
-                        <input type="file" name="picture" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="picture" onkeydown="return event.key != 'Enter'">
                     <p>Email:</p>
                         <input type="text" name="email" onkeydown="return event.key != 'Enter'">
                     <p>Store ID:</p>
@@ -187,41 +213,46 @@
                     <?php
                     if(isset($_POST['update'])){
                         if(!empty($_POST['staffid'])&& !empty($_POST['firstname'])&& !empty($_POST['lastname'])&& !empty($_POST['addressid'])
-                        && !empty($_POST['picture'])&& !empty($_POST['email'])&& !empty($_POST['storeid'])&& !empty($_POST['active'])&& !empty($_POST['username'])&& !empty($_POST['password'])){
-                            $staffid= $_POST['staffid'];
-                            $query= "SELECT staff_id FROM staff WHERE staff_id = $staffid;";
-                            $result= mysqli_query($conn,$query);
-
-                            if(mysqli_num_rows($result)==1){
+                        && !empty($_POST['email'])&& !empty($_POST['storeid'])&& ($_POST['active']==1 || $_POST['active']==0)&& !empty($_POST['username'])){
+                            if((is_numeric($_POST['staffid'])) &&$_POST['staffid'] > 0){
                                 $staffid= $_POST['staffid'];
-                                $firstname= $_POST['firstname'];
-                                $lastname= $_POST['lastname'];
-                                $addressid= $_POST['addressid'];
-                                $picture= $_POST['picture'];
-                                $email= $_POST['email'];
-                                $storeid= $_POST['storeid'];
-                                $active= $_POST['active'];
-                                $username= $_POST['username'];
-                                $password= $_POST['password'];
-                                $lastupdate= date('Y-m-d H:i:s');
-                                $firstname= strtoupper($firstname);
-                                $lastname= strtoupper($lastname);
-                                $update = "UPDATE staff SET firstname= '$firstname', lastname= '$lastname', address_id = '$addressid', 
-                                picture = '$picture',email = '$email',store_id = '$storeid',active = '$active',username= '$username', password= '$password', last_update= '$lastupdate' WHERE staff_id = $staffid;";
-                                $result = mysqli_query($conn,$update); 
-                                
-                                if($result)
-                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
-                                else
-                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
-                                
-                                echo("<meta http-equiv='refresh' content='1'>");
+                                $query= "SELECT staff_id FROM staff WHERE staff_id = $staffid;";
+                                $result= mysqli_query($conn,$query);
+
+                                if(mysqli_num_rows($result)==1){
+                                    $staffid= $_POST['staffid'];
+                                    $firstname= $_POST['firstname'];
+                                    $lastname= $_POST['lastname'];
+                                    $addressid= $_POST['addressid'];
+                                    $picture= $_POST['picture'];
+                                    $email= $_POST['email'];
+                                    $storeid= $_POST['storeid'];
+                                    $active= $_POST['active'];
+                                    $username= $_POST['username'];
+                                    $password= $_POST['password'];
+                                    $lastupdate= date('Y-m-d H:i:s');
+                                    $firstname= strtoupper($firstname);
+                                    $lastname= strtoupper($lastname);
+                                    $update = "UPDATE staff SET firstname= '$firstname', lastname= '$lastname', address_id = '$addressid', 
+                                    picture = '$picture',email = '$email',store_id = '$storeid',active = '$active',username= '$username', password= '$password', last_update= '$lastupdate' WHERE staff_id = $staffid;";
+                                    $result = mysqli_query($conn,$update); 
+                                    
+                                    if($result)
+                                        echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                    else
+                                        echo '<script> alert("PREVIOUS UPDATE FAILED! ADDRESS ID OR STORE ID ENTERED DOES NOT EXIST, PLEASE CHECK THE ADDRESS AND STORE TABLES FOR AN EXISTING ADDRESS ID AND STORE ID RESPECTIVELY")</script>';
+                                    
+                                    echo("<meta http-equiv='refresh' content='1'>");
+                                }else{
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! STAFF ID ENTERED DOES NOT EXIST")</script>';
+                                }
+                                    
                             }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! INVALID STAFF ID ENTERED")</script>';
                             }
-                                
-                        }else{
-                            echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                        }
+                        else{
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PICTURE AND PASSWORD")</script>';
                         }
                     }
                     ?>
@@ -243,24 +274,28 @@
             <?php
                 if(isset($_POST['delete'])){
                     if(!empty($_POST['staffid'])){
-                        $staffid= $_POST['staffid'];
-                        $query= "SELECT staff_id FROM staff WHERE staff_id = $staffid;";
-                        $result= mysqli_query($conn,$query);
-                            
-                        if(mysqli_num_rows($result)==1){
+                        if((is_numeric($_POST['staffid'])) &&$_POST['staffid'] > 0){
                             $staffid= $_POST['staffid'];
-                            $delete = "DELETE FROM staff WHERE staff_id= '$staffid'; ";
-                            $result = mysqli_query($conn,$delete);
+                            $query= "SELECT staff_id FROM staff WHERE staff_id = $staffid;";
+                            $result= mysqli_query($conn,$query);
                                 
-                            if($result){
-                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
-                            }else{
-                                echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                            if(mysqli_num_rows($result)==1){
+                                $staffid= $_POST['staffid'];
+                                $delete = "DELETE FROM staff WHERE staff_id= '$staffid'; ";
+                                $result = mysqli_query($conn,$delete);
+                                    
+                                if($result){
+                                    echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                                }else{
+                                    echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                                }
+                                    
+                                echo("<meta http-equiv='refresh' content='1'>");
+                            }else
+                                echo '<script> alert("PREVIOUS DELETE FAILED! STAFF ID ENTERED DOES NOT EXIST")</script>';
                             }
-                                
-                            echo("<meta http-equiv='refresh' content='1'>");
-                        }elseif (mysqli_num_rows($result)==0){
-                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
+                        else{
+                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID STAFF ID ENTERED")</script>';
                         }
                                 
                     }else{
@@ -301,6 +336,13 @@
             function(){
                 document.querySelector('.delete').style.display= 'none';
             });
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "620px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
         </script>
     </body>
 </html>
