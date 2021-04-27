@@ -101,7 +101,8 @@
                     <p>Username:</p>
                         <input type="text" name="username" onkeydown="return event.key != 'Enter'">
                     <p>Password:</p>
-                        <input type="text" name="password" style="display:block" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="password" onkeydown="return event.key != 'Enter'">
+                        <br />
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
 
                     <?php
@@ -179,8 +180,9 @@
                     <p>Username:</p>
                         <input type="text" name="username" onkeydown="return event.key != 'Enter'">
                     <p>Password:</p>
-                        <input type="text" name="password" style="display:block;" onkeydown="return event.key != 'Enter'">
-                    <input type= "submit" name= "update" class= "greenbutton" value ="UPDATE">
+                        <input type="text" name="password" onkeydown="return event.key != 'Enter'">
+                        <br />
+                    <input type= "submit" name= "update"  class= "greenbutton" value ="UPDATE">
 
                     <?php
                     if(isset($_POST['update'])){

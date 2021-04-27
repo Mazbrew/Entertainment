@@ -92,7 +92,12 @@
                                 $countryid= $_POST['countryid'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "INSERT INTO city VALUES('$cityid','$city','$countryid','$lastupdate');";
-                                $result = mysqli_query($conn,$insert); 
+                                $result = mysqli_query($conn,$insert);
+                                if ($result) {
+                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                }
+                                else
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -133,7 +138,11 @@
                                 $countryid= $_POST['countryid'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE city SET city= '$city', country_id= '$countryid', last_update= '$lastupdate' WHERE city_id = $cityid;";
-                                $result = mysqli_query($conn,$update); 
+                                $result = mysqli_query($conn,$update);
+                                if($result)
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -156,7 +165,7 @@
                 <form action= "" method = "post">
                     <p>City ID:</p>
                         <input type="text" name="cityid" onkeydown="return event.key != 'Enter'" style= "display:block;">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
@@ -170,7 +179,12 @@
                         if(mysqli_num_rows($result)==1){
                             $cityid= $_POST['cityid'];
                             $delete = "DELETE FROM city WHERE city_id= '$cityid'; ";
-                            $result = mysqli_query($conn,$delete); 
+                            $result = mysqli_query($conn,$delete);
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                            }else{
+                                echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                            } 
                             
                             echo("<meta http-equiv='refresh' content='1'>");
                         }else{

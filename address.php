@@ -101,7 +101,12 @@
                                 $phone = $_POST['phone'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "INSERT INTO address VALUES('$addressid','$address','$district','$cityid','$postalcode','$phone','$lastupdate');";
-                                $result = mysqli_query($conn,$insert); 
+                                $result = mysqli_query($conn,$insert);
+                                if ($result) {
+                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                }
+                                else
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -151,7 +156,11 @@
                                 $phone = $_POST['phone'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE address SET address='$address',district='$district',city_id='$cityid',postal_code='$postalcode',phone='$phone',last_update='$lastupdate' WHERE address_id='$addressid';";
-                                $result = mysqli_query($conn,$update);  
+                                $result = mysqli_query($conn,$update);
+                                if($result)
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';  
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -173,7 +182,7 @@
                 <form action= "" method = "post">
                     <p>Address ID:</p>
                         <input type="text" name="addressid" onkeydown="return event.key != 'Enter'" style= "display:block">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
@@ -185,8 +194,14 @@
                             $result= mysqli_query($conn,$query);
 
                             if(mysqli_num_rows($result)==1){
+                                $addressid= $_POST['addressid'];
                                 $delete = "DELETE FROM address WHERE address_id='$addressid';";
-                                $result = mysqli_query($conn,$delete);  
+                                $result = mysqli_query($conn,$delete);
+                                if($result){
+                                    echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                                }else{
+                                    echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                                }  
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{

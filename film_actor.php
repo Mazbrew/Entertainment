@@ -34,7 +34,7 @@
                 
                 $search = $_POST['search'];
             
-                $query = "SELECT * FROM film_actor WHERE actor_id LIKE '%$search%' ;";    
+                $query = "SELECT * FROM film_actor WHERE actor_id LIKE '%$search%' ORDER BY actor_id ASC;";    
                 $result = mysqli_query($conn,$query);
 
                 if(mysqli_num_rows($result)>0){
@@ -46,7 +46,7 @@
                 }
 
             }elseif(isset($_POST['reset'])){
-                $query = "SELECT * FROM film_actor;";
+                $query = "SELECT * FROM film_actor ORDER BY actor_id ASC;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
@@ -54,7 +54,7 @@
                 }
 
             }else {
-                $query = "SELECT * FROM film_actor;";
+                $query = "SELECT * FROM film_actor ORDER BY actor_id ASC;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
@@ -72,15 +72,16 @@
                     <p>Actor ID:</p>
                         <input type="text" name="actorid" onkeydown="return event.key != 'Enter'">
                     <p>Film ID:</p>
-                        <input type="text" name="firstname" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="filmid" onkeydown="return event.key != 'Enter'" style= "display:block">
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
 
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['actorid'])&& !empty($_POST['filmid'])){
-                            if($_POST['actorid'] > 0){
+                            if($_POST['actorid'] > 0 && $_POST['filmid'] > 0){
                                 $actorid= $_POST['actorid'];
-                                $query= "SELECT actor_id FROM film_actor WHERE actor_id = $actorid;";
+                                $filmid= $_POST['filmid'];
+                                $query= "SELECT actor_id , film_id FROM film_actor WHERE actor_id = $actorid and film_id = $filmid;";
                                 $result= mysqli_query($conn,$query);
 
                                 if(mysqli_num_rows($result)==0){
@@ -88,7 +89,7 @@
                                     $filmid= $_POST['filmid'];
                                     $lastupdate= date('Y-m-d H:i:s');
                 
-                                    $insert = "INSERT INTO actor VALUES('$actorid','$filmid','$lastupdate');";
+                                    $insert = "INSERT INTO film_actor VALUES('$actorid','$filmid','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
                                     if (!empty($result)) {
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
@@ -117,33 +118,47 @@
             <div class = "popupcontent">
                 <div class = "updatedown" id="close">+</div>
                 <form action= "" method = "post">
-                    <p>Actor ID:</p>
+                    <p>OLD Actor ID:</p>
+                        <input type="text" name="oldactorid" onkeydown="return event.key != 'Enter'">
+                    <p>OLD Film ID:</p>
+                        <input type="text" name="oldfilmid" onkeydown="return event.key != 'Enter'" >
+                    <p>NEW Actor ID:</p>
                         <input type="text" name="actorid" onkeydown="return event.key != 'Enter'">
-                    <p>Film ID:</p>
-                        <input type="text" name="filmid" onkeydown="return event.key != 'Enter'">
+                    <p>NEW Film ID:</p>
+                        <input type="text" name="filmid" onkeydown="return event.key != 'Enter'" style= "display:block">
 
                     <input type= "submit" name= "update" class= "greenbutton" value ="UPDATE">
 
                     <?php
                     if(isset($_POST['update'])){
-                        if(!empty($_POST['actorid'])&&  !empty($_POST['filmid'])){
-                            $actorid= $_POST['actorid'];
-                            $query= "SELECT actor_id FROM film_actor WHERE actor_id = $actorid;";
+                        if(!empty($_POST['oldactorid'])&&  !empty($_POST['oldfilmid']) && !empty($_POST['actorid']) &&  !empty($_POST['filmid'])){
+                            $oldactorid= $_POST['oldactorid'];
+                            $oldfilmid= $_POST['oldfilmid'];
+                            $query= "SELECT actor_id,film_id FROM film_actor WHERE actor_id = $oldactorid AND film_id = $oldfilmid;";
                             $result= mysqli_query($conn,$query);
 
-                            if(mysqli_num_rows($result)==1){
+                            if(mysqli_num_rows($result)>1){
                                 $actorid= $_POST['actorid'];
                                 $filmid= $_POST['filmid'];
-              
-                                $lastupdate= date('Y-m-d H:i:s');
-                                $update = "UPDATE film_actor SET film_id= '$filmid',  last_update= '$lastupdate' WHERE actor_id = $actorid;";
-                                $result = mysqli_query($conn,$update); 
-                                
-                                echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                $query= "SELECT actor_id,film_id FROM film_actor WHERE actor_id = $actorid AND film_id = $filmid;";
+                                $result= mysqli_query($conn,$query);
+
+                                if(mysqli_num_rows($result)==0){
+                                    $actorid= $_POST['actorid'];
+                                    $filmid= $_POST['filmid'];
+                
+                                    $lastupdate= date('Y-m-d H:i:s');
+                                    $update = "UPDATE film_actor SET actor_id= '$actorid', film_id= '$filmid',  last_update= '$lastupdate' WHERE actor_id = $oldactorid AND film_id = $oldfilmid;";
+                                    $result = mysqli_query($conn,$update); 
+                                    
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                }else{
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! NEW IDS already exist")</script>';
+                                }
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! OLD IDS do not exist")</script>';
                             }
                                 
                         }else{
@@ -161,45 +176,43 @@
                 <div class = "deletedown" id="close">+</div>
                 <form action= "" method = "post" onsubmit="return confirmDelete()">
                     <p>Actor ID:</p>
-                        <input type="text" name="actorid" onkeydown="return event.key != 'Enter'" style= "display:block">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                        <input type="text" name="actorid" onkeydown="return event.key != 'Enter'">
+                    <p>Film ID:</p>
+                        <input type="text" name="filmid" onkeydown="return event.key != 'Enter'" style= "display:block">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
             <?php
                 if(isset($_POST['delete'])){
-                    //$conf = false;
-                    //echo '<script> confirm("ARE YOU SURE TO DELETE THIS ROW?")</script>';
-                        //if($conf){
-                       if ($confirm==1){
-                            if(!empty($_POST['actorid'])){
+                       
+                    if(!empty($_POST['actorid']) && !empty($_POST['filmid'])  ){
+                        $actorid= $_POST['actorid'];
+                        $filmid= $_POST['filmid'];
+                        $query= "SELECT actor_id FROM film_actor WHERE actor_id = $actorid AND film_id = $filmid;";
+                        $result= mysqli_query($conn,$query);
+                        
+                        if(mysqli_num_rows($result)>1){
                             $actorid= $_POST['actorid'];
-                            $query= "SELECT actor_id FROM film_actor WHERE actor_id = $actorid;";
-                            $result= mysqli_query($conn,$query);
-                            
-                                if(mysqli_num_rows($result)==1){
-                                    $actorid= $_POST['actorid'];
-                                    $delete = "DELETE FROM film_actor WHERE actor_id= '$actorid'; ";
-                                    $result = mysqli_query($conn,$delete);
-                                
-                                    if($result){
-                                        echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
-                                    }else{
-                                        echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
-                                    }
-                                
-                                    echo("<meta http-equiv='refresh' content='1'>");
-                                }elseif (mysqli_num_rows($result)==0){
-                                    echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
-                                }
-                                
+                            $delete = "DELETE FROM film_actor WHERE actor_id= '$actorid' AND film_id = '$filmid'; ";
+                            $result = mysqli_query($conn,$delete);
+                        
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
                             }else{
-                                echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                                echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
                             }
-                       }else{
-                           echo '<script> alert("NO ROW IS DELETED!")</script>';
-                       }
+                        
+                            echo("<meta http-equiv='refresh' content='1'>");
+                        }elseif (mysqli_num_rows($result)==0){
+                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
+                        }
+                            
+                    }else{
+                        echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
                     }
+
+                }
                         //else
                             //echo '<script> alert("NO DATA IS DELETED!")</script>';
                     //}
