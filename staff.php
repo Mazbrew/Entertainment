@@ -110,7 +110,7 @@
                         if(!empty($_POST['staffid'])&& !empty($_POST['firstname'])&& !empty($_POST['lastname'])&& !empty($_POST['addressid'])
                         && !empty($_POST['picture'])&& !empty($_POST['email'])&& !empty($_POST['storeid'])&& !empty($_POST['active'])&& !empty($_POST['username'])&& !empty($_POST['password'])){
                             if($_POST['staffid'] > 0){
-                                $rentalid= $_POST['staffid'];
+                                $staffid= $_POST['staffid'];
                                 $query= "SELECT staff_id FROM staff WHERE staff_id = $staffid;";
                                 $result= mysqli_query($conn,$query);
 
@@ -128,7 +128,7 @@
                                     $lastupdate= date('Y-m-d H:i:s');
                                     $firstname= strtoupper($firstname);
                                     $lastname= strtoupper($lastname);
-                                    $insert = "INSERT INTO rental VALUES('$staffid','$firstname','$lastname','$addressid',CAST('$picture' AS VARBINARY(MAX)),'$email',
+                                    $insert = "INSERT INTO staff VALUES('$staffid','$firstname','$lastname','$addressid',CAST('$picture' AS VARBINARY(MAX)),'$email',
                                     '$storeid','$active','$username','$password','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
                                     if ($result) {
@@ -206,7 +206,7 @@
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $firstname= strtoupper($firstname);
                                 $lastname= strtoupper($lastname);
-                                $update = "UPDATE rental SET firstname= '$firstname', lastname= '$lastname', address_id = '$addressid', 
+                                $update = "UPDATE staff SET firstname= '$firstname', lastname= '$lastname', address_id = '$addressid', 
                                 picture = '$picture',email = '$email',store_id = '$storeid',active = '$active',username= '$username', password= '$password', last_update= '$lastupdate' WHERE staff_id = $staffid;";
                                 $result = mysqli_query($conn,$update); 
                                 
