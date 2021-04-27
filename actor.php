@@ -234,7 +234,7 @@
                                 echo '<script> alert("PREVIOUS DELETE FAILED! ACTOR ID ENTERED DOES NOT EXIST")</script>';
                             }
                         }else{
-                             echo '<script> alert("PREVIOUS UPDATE FAILED! INVALID ACTOR ID ENTERED")</script>';
+                             echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ACTOR ID ENTERED")</script>';
                         }     
                     }else{
                         echo '<script> alert("PREVIOUS DELETE FAILED! PLEASE FILL ALL FIELDS")</script>';
