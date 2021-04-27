@@ -128,7 +128,7 @@
                                     $lastupdate= date('Y-m-d H:i:s');
                                     $firstname= strtoupper($firstname);
                                     $lastname= strtoupper($lastname);
-                                    $insert = "INSERT INTO rental VALUES('$staffid','$firstname','$lastname','$addressid','$picture','$email',
+                                    $insert = "INSERT INTO rental VALUES('$staffid','$firstname','$lastname','$addressid',CAST('$picture' AS VARBINARY(MAX)),'$email',
                                     '$storeid','$active','$username','$password','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
                                     if ($result) {

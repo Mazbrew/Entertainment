@@ -111,9 +111,11 @@
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $insert = "INSERT INTO film VALUES('$filmid','$releaseyear','$languageid','$rentalduration','$rentalrate','$length','$replacementcost','$rating','$specialfeatures','$lastupdate');";
                                 $result = mysqli_query($conn,$insert);
-                                if (!empty($result)) {
-                                    echo 'Data Inserted';
-                                }    
+                                if ($result) {
+                                    echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
+                                }
+                                else
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }
                             else{
@@ -174,7 +176,11 @@
                                 $specialfeatures= $_POST['specialfeatures'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE film SET release_year= '$releaseyear', language_id= '$languageid',rental_duration='$rentalduration',rental_rate='$rentalrate',length='$length',replacement_cost='$replacementcost',rating='$rating',special_features='$specialfeatures',last_update='$lastupdate' WHERE film_id = $filmid;";
-                                $result = mysqli_query($conn,$update); 
+                                $result = mysqli_query($conn,$update);
+                                if($result)
+                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                else
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>'; 
                                 
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }else{
@@ -197,7 +203,7 @@
                 <form action= "" method = "post">
                     <p>Film ID:</p>
                         <input type="text" name="filmid" onkeydown="return event.key != 'Enter'" style= "display:block">
-                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE">
+                    <input type= "submit" name= "delete" class= "greenbutton" value ="DELETE" onclick="return confirm('ARE YOU SURE TO DELETE THIS ROW?')">
                 </form>
             </div>
 
@@ -212,7 +218,11 @@
                             $filmid= $_POST['filmid'];
                             $delete = "DELETE FROM film WHERE film_id= '$filmid'; ";
                             $result = mysqli_query($conn,$delete); 
-                            
+                            if($result){
+                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                            }else{
+                                echo '<script> alert("DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                            }
                             echo("<meta http-equiv='refresh' content='1'>");
                         }else{
                             echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
