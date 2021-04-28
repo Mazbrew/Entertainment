@@ -37,7 +37,7 @@
                 <a href= "rental.php">rental</a>
                 <a href= "staff.php">staff</a>
                 <a href= "store.php">store</a>
-                <a href= "payment&customer&staff.php">payment&customer&staff</a>
+                <a href= "payment&customer.php">payment&customer</a>
                 <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
                 <a href= "country&city&address.php">country&city&address</a>
             </div>
@@ -46,7 +46,7 @@
                 <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
             </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ADDRESS ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY ADDRESS ID" size="30" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 

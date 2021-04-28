@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Payment Join Customer Join Staff</title>
+        <title>Payment Join Customer</title>
         <link rel="preconnect" href="https://fonts.gstatic.com">
         <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
  
@@ -37,7 +37,7 @@
                 <a href= "rental.php">rental</a>
                 <a href= "staff.php">staff</a>
                 <a href= "store.php">store</a>
-                <a href= "payment&customer&staff.php">payment&customer&staff</a>
+                <a href= "payment&customer.php">payment&customer</a>
                 <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
                 <a href= "country&city&address.php">country&city&address</a>
             </div>
@@ -46,7 +46,7 @@
                 <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
             </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY PAYMENT ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY PAYMENT ID" size="30" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
@@ -54,36 +54,36 @@
         </div>
 
         <?php
-            echo "<table style='table-layout:auto;width:100%;'><thead><tr><th>Payment_id</th><th>Customer_first_name</th><th>Customer_last_name</th><th>Staff_first_name</th><th>Staff_last_name</th><th>Rental_id</th><th>Amount</th><th>Payment_date</th><th>Payment_last_update</th></thead><tbody>"; 
+            echo "<table><thead><tr><th>Payment_id</th><th>Customer_first_name</th><th>Customer_last_name</th><th>Rental_id</th><th>Payment_date</th><th>Payment_last_update</th></thead><tbody>"; 
             if (isset($_POST['search'])){
                 
                 $search = $_POST['search'];
         
-                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, staff.first_name AS staff_first, staff.last_name AS staff_last, rental_id, amount, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id INNER JOIN staff ON staff.staff_id = payment.staff_id WHERE payment_id LIKE '%$search%' GROUP BY payment_id ;";    
+                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id WHERE payment_id LIKE '%$search%' GROUP BY payment_id ;";    
                 $result = mysqli_query($conn,$query);
 
                 if (mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){   
-                        echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['staff_first'] . "</td><td>" . $row['staff_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['amount'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>"; 
+                        echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>"; 
                     }
                 }else{
-                    echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td></tr>";
+                    echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td></tr>";
                 }
 
             }elseif(isset($_POST['reset'])){
-                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, staff.first_name AS staff_first, staff.last_name AS staff_last, rental_id, amount, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id INNER JOIN staff ON staff.staff_id = payment.staff_id ORDER BY payment_id ASC;";
+                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id ORDER BY payment_id ASC;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
-                    echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['staff_first'] . "</td><td>" . $row['staff_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['amount'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>"; 
+                    echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>"; 
                 }
 
             }else {
-                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, staff.first_name AS staff_first, staff.last_name AS staff_last, rental_id, amount, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id INNER JOIN staff ON staff.staff_id = payment.staff_id ORDER BY payment_id ASC;";
+                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id ORDER BY payment_id ASC;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
-                    echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['staff_first'] . "</td><td>" . $row['staff_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['amount'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>";   
+                    echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>";   
                 }
             } 
             echo "</tbody></table>";

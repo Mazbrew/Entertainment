@@ -37,7 +37,7 @@
                 <a href= "rental.php">rental</a>
                 <a href= "staff.php">staff</a>
                 <a href= "store.php">store</a>
-                <a href= "payment&customer&staff.php">payment&customer&staff</a>
+                <a href= "payment&customer.php">payment&customer</a>
                 <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
                 <a href= "country&city&address.php">country&city&address</a>
             </div>
