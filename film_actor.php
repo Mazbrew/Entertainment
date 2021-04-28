@@ -74,7 +74,7 @@
                 }
 
             }elseif(isset($_POST['reset'])){
-                $query = "SELECT * FROM film_actor;";
+                $query = "SELECT * FROM film_actor ORDER BY actor_id ASC;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
@@ -82,7 +82,7 @@
                 }
 
             }else {
-                $query = "SELECT * FROM film_actor;";
+                $query = "SELECT * FROM film_actor ORDER BY actor_id ASC;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
@@ -169,7 +169,7 @@
                             $query= "SELECT actor_id,film_id FROM film_actor WHERE actor_id = $oldactorid AND film_id = $oldfilmid;";
                             $result= mysqli_query($conn,$query);
 
-                            if(mysqli_num_rows($result)>1){
+                            if(mysqli_num_rows($result)>=1){
                                 $actorid= $_POST['actorid'];
                                 $filmid= $_POST['filmid'];
                                 $query= "SELECT actor_id,film_id FROM film_actor WHERE actor_id = $actorid AND film_id = $filmid;";
@@ -232,7 +232,7 @@
                         $query= "SELECT actor_id FROM film_actor WHERE actor_id = $actorid AND film_id = $filmid;";
                         $result= mysqli_query($conn,$query);
                         
-                        if(mysqli_num_rows($result)>1){
+                        if(mysqli_num_rows($result)>=1){
                             $actorid= $_POST['actorid'];
                             $delete = "DELETE FROM film_actor WHERE actor_id= '$actorid' AND film_id = '$filmid'; ";
                             $result = mysqli_query($conn,$delete);
