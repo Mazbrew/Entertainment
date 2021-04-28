@@ -56,14 +56,15 @@
                 <button id="delete" class= "button">DELETE</button>
             </div>
 
+
         <?php
-            echo "<table><thead><tr><th>Rental_id</th><th>Rental_date</th><th>Inventory_id</th><th>Customer_id</th>
-            <th>Return_date</th><th>Staff_id</th><th>Last_update</th></thead><tbody>"; 
             if (isset($_POST['search'])){
-                
+                echo "<table><thead><tr><th>Rental_id</th><th>Rental_date</th><th>Inventory_id</th><th>Customer_id</th>
+                <th>Return_date</th><th>Staff_id</th><th>Last_update</th></thead><tbody>"; 
+
                 $search = $_POST['search'];
             
-                $query = "SELECT * FROM rental WHERE rental_id LIKE '%$search%' ;";    
+                $query = "SELECT * FROM rental WHERE rental_id LIKE '%$search%' LIMIT 1000;";    
                 $result = mysqli_query($conn,$query);
 
                 if(mysqli_num_rows($result)>0){
@@ -77,7 +78,17 @@
                 }
 
             }elseif(isset($_POST['reset'])){
-                $query = "SELECT * FROM rental;";
+                $query = "SELECT * FROM rental";
+                $result = mysqli_query($conn,$query);
+                $totalrecords= mysqli_num_rows($result);
+                $pagelim = ceil($totalrecords/1000);
+
+                echo "<form action= '' method= 'POST'> <input type ='text' name= 'page' placeholder='Input the page number (1 / $pagelim)' size='30' style= 'border-radius: 5px;'></form>";
+
+                echo "<table><thead><tr><th>Rental_id</th><th>Rental_date</th><th>Inventory_id</th><th>Customer_id</th>
+                <th>Return_date</th><th>Staff_id</th><th>Last_update</th></thead><tbody>";
+
+                $query = "SELECT * FROM rental WHERE rental_id BETWEEN (0 * 1000) AND (((0 + 1)* 1000)-1)";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
@@ -85,15 +96,51 @@
                     <td>" . $row['customer_id'] . "</td><td>" . $row['return_date'] . "</td><td>" . $row['staff_id'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
                 }
 
-            }else {
-                $query = "SELECT * FROM rental;";
+            }elseif(isset($_POST['page'])){
+                $page= $_POST['page'];
+                $query = "SELECT * FROM rental";
+                $result = mysqli_query($conn,$query);
+                $totalrecords= mysqli_num_rows($result);
+                $pagelim = ceil($totalrecords/1000);
+
+                if($page <1 || $page > $pagelim){
+                    echo("<meta http-equiv='refresh' content='1'>");
+                    echo '<script> alert("Page number invalid")</script>';
+                    
+                }
+
+                echo "<form action= '' method= 'POST'> <input type ='text' name= 'page' placeholder='Input the page number ($page / $pagelim)' size='30' style= 'border-radius: 5px;'></form>";
+
+                echo "<table><thead><tr><th>Rental_id</th><th>Rental_date</th><th>Inventory_id</th><th>Customer_id</th>
+                <th>Return_date</th><th>Staff_id</th><th>Last_update</th></thead><tbody>";
+
+                
+                $query = "SELECT * FROM rental WHERE rental_id BETWEEN (($page-1) * 1000) AND ((($page)* 1000)-1)";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
                     echo "<tr><td>" . $row['rental_id'] . "</td><td>" . $row['rental_date'] . "</td><td>" . $row['inventory_id'] . "</td>
                         <td>" . $row['customer_id'] . "</td><td>" . $row['return_date'] . "</td><td>" . $row['staff_id'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
                 }
-    
+
+            }else { 
+                $query = "SELECT * FROM rental";
+                $result = mysqli_query($conn,$query);
+                $totalrecords= mysqli_num_rows($result);
+                $pagelim = ceil($totalrecords/1000);
+
+                echo "<form action= '' method= 'POST'> <input type ='text' name= 'page' placeholder='Input the page number (1 / $pagelim)' size='30' style= 'border-radius: 5px;'></form>";
+
+                echo "<table><thead><tr><th>Rental_id</th><th>Rental_date</th><th>Inventory_id</th><th>Customer_id</th>
+                <th>Return_date</th><th>Staff_id</th><th>Last_update</th></thead><tbody>";
+
+                $query = "SELECT * FROM rental WHERE rental_id BETWEEN (0 * 1000) AND (((0 + 1)* 1000)-1)";
+                $result = mysqli_query($conn,$query);
+
+                while($row = mysqli_fetch_assoc($result)){   
+                    echo "<tr><td>" . $row['rental_id'] . "</td><td>" . $row['rental_date'] . "</td><td>" . $row['inventory_id'] . "</td>
+                        <td>" . $row['customer_id'] . "</td><td>" . $row['return_date'] . "</td><td>" . $row['staff_id'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
+                }
             } 
             echo "</tbody></table>";
         ?>
