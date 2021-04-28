@@ -58,23 +58,22 @@
 
         <?php
             echo "<table style='table-layout:auto;max-width:100px;'><thead><tr><th>Staff_id</th><th>First_name</th><th>Last_name</th><th>Address_id</th>
-            <th>Picture</th><th>Email</th><th>Store_id</th><th>Active</th><th>Username</th><th>Password</th><th>Last_update</th></thead><tbody>"; 
+            <th>Email</th><th>Store_id</th><th>Active</th><th>Username</th><th>Password</th><th>Last_update</th></thead><tbody>"; 
             if (isset($_POST['search'])){
                 
                 $search = $_POST['search'];
             
-                $query = "SELECT * FROM staff WHERE staff_id LIKE '%$search%' ;";    
+                $query = "SELECT staff_id, first_name, last_name, address_id, email, store_id, active, username, password, last_update FROM staff WHERE staff_id LIKE '%$search%' ;";    
                 $result = mysqli_query($conn,$query);
 
                 if(mysqli_num_rows($result)>0){
                     while($row = mysqli_fetch_assoc($result)){   
                         echo "<tr><td>" . $row['staff_id'] . "</td><td>" . $row['first_name'] . "</td><td>" . $row['last_name'] . "</td>
-                        <td>" . $row['address_id'] . "</td><td>" . $row['picture'] . "</td><td>" . $row['email'] . "</td>
-                        <td>" . $row['store_id'] . "</td><td>" . $row['active'] . "</td><td>" . $row['username'] . "</td>
+                        <td>" . $row['address_id'] . "</td><td>" . $row['email'] . "</td><td>" . $row['store_id'] . "</td><td>" . $row['active'] . "</td><td>" . $row['username'] . "</td>
                         <td>" . $row['password'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
                     }
                 }else{
-                    echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td>
+                    echo "<tr><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td>
                     <td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td><td> --NO DATA-- </td></tr>";
                 }
 
@@ -84,7 +83,7 @@
 
                 while($row = mysqli_fetch_assoc($result)){   
                     echo "<tr><td>" . $row['staff_id'] . "</td><td>" . $row['first_name'] . "</td><td>" . $row['last_name'] . "</td>
-                    <td>" . $row['address_id'] . "</td><td>" . $row['picture'] . "</td><td>" . $row['email'] . "</td>
+                    <td>" . $row['address_id'] . "</td><td>" . $row['email'] . "</td>
                     <td>" . $row['store_id'] . "</td><td>" . $row['active'] . "</td><td>" . $row['username'] . "</td>
                     <td>" . $row['password'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
                 }
@@ -95,7 +94,7 @@
 
                 while($row = mysqli_fetch_assoc($result)){   
                     echo "<tr><td>" . $row['staff_id'] . "</td><td>" . $row['first_name'] . "</td><td>" . $row['last_name'] . "</td>
-                    <td>" . $row['address_id'] . "</td><td>" . $row['picture'] . "</td><td>" . $row['email'] . "</td>
+                    <td>" . $row['address_id'] . "</td><td>" . $row['email'] . "</td>
                     <td>" . $row['store_id'] . "</td><td>" . $row['active'] . "</td><td>" . $row['username'] . "</td>
                     <td>" . $row['password'] . "</td><td>" . $row['last_update'] . "</td></tr>";  
                 }
@@ -116,8 +115,6 @@
                         <input type="text" name="lastname" onkeydown="return event.key != 'Enter'">
                     <p>Address ID:</p>
                         <input type="text" name="addressid" onkeydown="return event.key != 'Enter'">
-                    <p>Picture:</p>
-                        <input type="text" name="picture" onkeydown="return event.key != 'Enter'">
                     <p>Email:</p>
                         <input type="text" name="email" onkeydown="return event.key != 'Enter'">
                     <p>Store ID:</p>
@@ -145,7 +142,6 @@
                                     $firstname= $_POST['firstname'];
                                     $lastname= $_POST['lastname'];
                                     $addressid= $_POST['addressid'];
-                                    $picture= $_POST['picture'];
                                     $email= $_POST['email'];
                                     $storeid= $_POST['storeid'];
                                     $active= $_POST['active'];
@@ -154,7 +150,7 @@
                                     $lastupdate= date('Y-m-d H:i:s');
                                     $firstname= strtoupper($firstname);
                                     $lastname= strtoupper($lastname);
-                                    $insert = "INSERT INTO staff VALUES('$staffid','$firstname','$lastname','$addressid','$picture','$email',
+                                    $insert = "INSERT INTO staff (staff_id, first_name, last_name, address_id, email, store_id, active, username, password, last_update) VALUES('$staffid','$firstname','$lastname','$addressid','$email',
                                     '$storeid','$active','$username','$password','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
                                     if ($result) {
@@ -174,7 +170,7 @@
                             }
                         } 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PICTURE AND PASSWORD")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PASSWORD")</script>';
                         }
                     }
                     
@@ -195,8 +191,6 @@
                         <input type="text" name="lastname" onkeydown="return event.key != 'Enter'">
                     <p>Address ID:</p>
                         <input type="text" name="addressid" onkeydown="return event.key != 'Enter'">
-                    <p>Picture:</p>
-                        <input type="text" name="picture" onkeydown="return event.key != 'Enter'">
                     <p>Email:</p>
                         <input type="text" name="email" onkeydown="return event.key != 'Enter'">
                     <p>Store ID:</p>
@@ -224,7 +218,6 @@
                                     $firstname= $_POST['firstname'];
                                     $lastname= $_POST['lastname'];
                                     $addressid= $_POST['addressid'];
-                                    $picture= $_POST['picture'];
                                     $email= $_POST['email'];
                                     $storeid= $_POST['storeid'];
                                     $active= $_POST['active'];
@@ -234,7 +227,7 @@
                                     $firstname= strtoupper($firstname);
                                     $lastname= strtoupper($lastname);
                                     $update = "UPDATE staff SET firstname= '$firstname', lastname= '$lastname', address_id = '$addressid', 
-                                    picture = '$picture',email = '$email',store_id = '$storeid',active = '$active',username= '$username', password= '$password', last_update= '$lastupdate' WHERE staff_id = $staffid;";
+                                    email = '$email',store_id = '$storeid',active = '$active',username= '$username', password= '$password', last_update= '$lastupdate' WHERE staff_id = $staffid;";
                                     $result = mysqli_query($conn,$update); 
                                     
                                     if($result)
@@ -252,7 +245,7 @@
                             }
                         }
                         else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PICTURE AND PASSWORD")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PASSWORD")</script>';
                         }
                     }
                     ?>
