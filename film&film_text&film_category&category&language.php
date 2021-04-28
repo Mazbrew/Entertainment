@@ -59,7 +59,7 @@
                 
                 $search = $_POST['search'];
         
-                $query = "SELECT film_text.title AS title, category.name AS category, language.name AS language FROM film INNER JOIN film_text ON film.film_id = film_text.film_id INNER JOIN film_category ON film_text.film_id = film_category.film_id INNER JOIN category ON film_category.category_id = category.category_id INNER JOIN language ON film.language_id = language.language_id WHERE title LIKE '%$search%' GROUP BY title ;";    
+                $query = "SELECT film_text.title AS title, category.name AS category, language.name AS language FROM film INNER JOIN film_text ON film.film_id = film_text.film_id INNER JOIN film_category ON film_text.film_id = film_category.film_id INNER JOIN category ON film_category.category_id = category.category_id INNER JOIN language ON film.language_id = language.language_id WHERE title LIKE '%$search%' ORDER BY title ;";    
                 $result = mysqli_query($conn,$query);
 
                 if (mysqli_num_rows($result)>0){
@@ -71,7 +71,7 @@
                 }
 
             }elseif(isset($_POST['reset'])){
-                $query = "SELECT film_text.title AS title, category.name AS category, language.name AS language FROM film INNER JOIN film_text ON film.film_id = film_text.film_id INNER JOIN film_category ON film_text.film_id = film_category.film_id INNER JOIN category ON film_category.category_id = category.category_id INNER JOIN language ON film.language_id = language.language_id GROUP BY title;";
+                $query = "SELECT film_text.title AS title, category.name AS category, language.name AS language FROM film INNER JOIN film_text ON film.film_id = film_text.film_id INNER JOIN film_category ON film_text.film_id = film_category.film_id INNER JOIN category ON film_category.category_id = category.category_id INNER JOIN language ON film.language_id = language.language_id ORDER BY title;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
@@ -79,7 +79,7 @@
                 }
 
             }else {
-                $query = "SELECT film_text.title AS title, category.name AS category, language.name AS language FROM film INNER JOIN film_text ON film.film_id = film_text.film_id INNER JOIN film_category ON film_text.film_id = film_category.film_id INNER JOIN category ON film_category.category_id = category.category_id INNER JOIN language ON film.language_id = language.language_id GROUP BY title;";
+                $query = "SELECT film_text.title AS title, category.name AS category, language.name AS language FROM film INNER JOIN film_text ON film.film_id = film_text.film_id INNER JOIN film_category ON film_text.film_id = film_category.film_id INNER JOIN category ON film_category.category_id = category.category_id INNER JOIN language ON film.language_id = language.language_id ORDER BY title;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
