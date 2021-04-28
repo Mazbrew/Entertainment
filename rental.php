@@ -152,13 +152,13 @@
                     <p>Rental ID:</p>
                         <input type="text" name="rentalid" onkeydown="return event.key != 'Enter'">
                     <p>Rental Date:</p>
-                        <input type="text" name="rentaldate" onkeydown="return event.key != 'Enter'">
+                        <input type="datetime-local" name="rentaldate" onkeydown="return event.key != 'Enter'">
                     <p>Inventory ID:</p>
                         <input type="text" name="inventoryid" onkeydown="return event.key != 'Enter'">
                     <p>Customer ID:</p>
                         <input type="text" name="customerid" onkeydown="return event.key != 'Enter'">
                     <p>Return Date:</p>
-                        <input type="text" name="returndate" onkeydown="return event.key != 'Enter'">
+                        <input type="datetime-local" name="returndate" onkeydown="return event.key != 'Enter'">
                     <p>Staff ID:</p>
                         <input type="text" name="staffid" style="display:block;" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
@@ -215,21 +215,21 @@
                     <p>Rental ID:</p>
                         <input type="text" name="rentalid" onkeydown="return event.key != 'Enter'">
                     <p>Rental Date:</p>
-                        <input type="text" name="rentaldate" onkeydown="return event.key != 'Enter'">
+                        <input type="datetime-local" name="rentaldate" onkeydown="return event.key != 'Enter'">
                     <p>Inventory ID:</p>
                         <input type="text" name="inventoryid" onkeydown="return event.key != 'Enter'">
                     <p>Customer ID:</p>
                         <input type="text" name="customerid" onkeydown="return event.key != 'Enter'">
                     <p>Return Date:</p>
-                        <input type="text" name="returndate" onkeydown="return event.key != 'Enter'">
+                        <input type="datetime-local" name="returndate" onkeydown="return event.key != 'Enter'">
                     <p>Staff ID:</p>
                         <input type="text" name="staffid" style="display:block;" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "update" class= "greenbutton" value ="UPDATE">
 
                     <?php
                     if(isset($_POST['update'])){
-                        if(!empty($_POST['rentalid'])&& !empty($_POST['rentaldate'])&& !empty($_POST['inventoryid'])&& !empty($_POST['customerid'])
-                        && !empty($_POST['staffid'])){
+                        if(!empty($_POST['rentalid'])&& !empty($_POST['inventoryid'])&& !empty($_POST['customerid'])
+                        && !empty($_POST['rentaldate']) && !empty($_POST['staffid'])){
                                 if((is_numeric($_POST['rentalid'])) &&$_POST['rentalid'] > 0){
                                 $rentalid= $_POST['rentalid'];
                                 $query= "SELECT rental_id FROM rental WHERE rental_id = $rentalid;";
@@ -243,7 +243,7 @@
                                     $returndate= $_POST['returndate'];
                                     $staffid= $_POST['staffid'];
                                     $lastupdate= date('Y-m-d H:i:s');
-                                    $update = "UPDATE rental SET rental_date= '$rentaldate', inventory_id= '$inventoryid', customer_id = '$customerid', 
+                                    $update = "UPDATE rental SET  rental_date = '$rentaldate', inventory_id= '$inventoryid', customer_id = '$customerid', 
                                     return_date= '$returndate', staff_id= '$staffid', last_update= '$lastupdate' WHERE rental_id = $rentalid;";
                                     $result = mysqli_query($conn,$update); 
                                     
@@ -309,7 +309,7 @@
                     }
                                 
                     }else{
-                        echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                        echo '<script> alert("PREVIOUS DELETE FAILED! PLEASE FILL ALL FIELDS")</script>';
                     }
                 }
             ?>
