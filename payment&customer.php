@@ -59,7 +59,7 @@
                 
                 $search = $_POST['search'];
         
-                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id WHERE payment_id LIKE '%$search%' GROUP BY payment_id ;";    
+                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id WHERE payment_id LIKE '%$search%' GROUP BY payment_id LIMIT 1000;";    
                 $result = mysqli_query($conn,$query);
 
                 if (mysqli_num_rows($result)>0){
@@ -71,16 +71,61 @@
                 }
 
             }elseif(isset($_POST['reset'])){
+                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id ORDER BY payment_id ;";
+                $result = mysqli_query($conn,$query);
+                $totalrecords= mysqli_num_rows($result);
+                $pagelim = ceil($totalrecords/1000);
+
+                echo "<form action= '' method= 'POST'> <input type ='text' name= 'page' placeholder='Input the page number (1 / $pagelim)' size='30' style= 'border-radius: 5px;'></form>";
+
+
+                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id AND payment_id BETWEEN (0 * 1000) AND (((0 + 1)* 1000)-1) ORDER BY payment_id ASC;";
+
+                $result = mysqli_query($conn,$query);
+
+
+                while($row = mysqli_fetch_assoc($result)){   
+                    echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>"; 
+                }
+
+                }elseif(isset($_POST['page'])){
+                $page= $_POST['page'];
                 $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id ORDER BY payment_id ASC;";
+                $result = mysqli_query($conn,$query);
+                $totalrecords= mysqli_num_rows($result);
+                $pagelim = ceil($totalrecords/1000);
+
+                if($page <1 || $page > $pagelim){
+                    echo("<meta http-equiv='refresh' content='1'>");
+                    echo '<script> alert("Page number invalid")</script>';
+                    
+                }
+
+                echo "<form action= '' method= 'POST'> <input type ='text' name= 'page' placeholder='Input the page number ($page / $pagelim)' size='30' style= 'border-radius: 5px;'></form>";
+
+                
+
+                
+                $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id AND payment_id BETWEEN (($page-1) * 1000) AND ((($page)* 1000)-1) ORDER BY payment_id ASC;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
                     echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>"; 
                 }
 
-            }else {
+                }else {
                 $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id ORDER BY payment_id ASC;";
                 $result = mysqli_query($conn,$query);
+                $totalrecords= mysqli_num_rows($result);
+                $pagelim = ceil($totalrecords/1000);
+
+                echo "<form action= '' method= 'POST'> <input type ='text' name= 'page' placeholder='Input the page number (1 / $pagelim)' size='30' style= 'border-radius: 5px;'></form>";
+
+            
+
+                 $query = "SELECT payment_id, customer.first_name AS customer_first, customer.last_name AS customer_last, rental_id, payment_date, payment.last_update AS payment_last_update FROM payment INNER JOIN customer ON customer.customer_id = payment.customer_id AND payment_id BETWEEN (0 * 1000) AND (((0 + 1)* 1000)-1) ORDER BY payment_id ASC;";
+
+                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
                     echo "<tr><td>" . $row['payment_id'] . "</td><td>" . $row['customer_first'] . "</td><td>" . $row['customer_last'] . "</td><td>" . $row['rental_id'] . "</td><td>" . $row['payment_date'] . "</td><td>" . $row['payment_last_update'] . "</td></tr>";   
