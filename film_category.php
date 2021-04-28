@@ -106,7 +106,7 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['filmid'])&& !empty($_POST['categoryid'])){
-                            if($_POST['filmid'] > 0){
+                            if((is_numeric($_POST['filmid'])) && ($_POST['filmid'] > 0)){
                                 $filmid= $_POST['filmid'];
                                 $query= "SELECT film_id FROM film_category WHERE film_id = $filmid;";
                                 $result= mysqli_query($conn,$query);
@@ -121,20 +121,20 @@
                                     echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                 }
                                 else
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! FILM ID OR CATEGORY ID ENTERED DOES NOT EXIST, PLEASE CHECK THE FILM AND CATEGORY TABLES FOR AN EXISTING FILM ID AND CATEGORY ID RESPECTIVELY")</script>';    
                                 echo("<meta http-equiv='refresh' content='1'>");
                             }
                             else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! FILM ID ENTERED ALREADY EXISTS")</script>';
                             }
                                 
                         } 
                          else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID FILM ID ENTERED")</script>';
                             }
                         } 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! PLEASE FILL ALL FIELDS")</script>';
                         }
                     }
                     
@@ -156,28 +156,31 @@
                     <?php
                     if(isset($_POST['update'])){
                         if(!empty($_POST['filmid'])&& !empty($_POST['categoryid'])){
-                            $filmid= $_POST['filmid'];
-                            $query= "SELECT film_id FROM film_category WHERE film_id = $filmid;";
-                            $result= mysqli_query($conn,$query);
-
-                            if(mysqli_num_rows($result)==1){
+                            if((is_numeric($_POST['filmid'])) && ($_POST['filmid'] > 0)){
                                 $filmid= $_POST['filmid'];
-                                $categoryid= $_POST['categoryid'];
-                                $lastupdate= date('Y-m-d H:i:s');
-                                $update = "UPDATE film_category SET  category_id= '$categoryid', last_update= '$lastupdate' WHERE film_id = $filmid;";
-                                $result = mysqli_query($conn,$update); 
-                                if($result)
-                                    echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
-                                else
-                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                $query= "SELECT film_id FROM film_category WHERE film_id = $filmid;";
+                                $result= mysqli_query($conn,$query);
+
+                                if(mysqli_num_rows($result)==1){
+                                    $filmid= $_POST['filmid'];
+                                    $categoryid= $_POST['categoryid'];
+                                    $lastupdate= date('Y-m-d H:i:s');
+                                    $update = "UPDATE film_category SET  category_id= '$categoryid', last_update= '$lastupdate' WHERE film_id = $filmid;";
+                                    $result = mysqli_query($conn,$update); 
+                                    if($result)
+                                        echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
+                                    else
+                                        echo '<script> alert("PREVIOUS UPDATE FAILED! FILM ID OR CATEGORY ID ENTERED DOES NOT EXIST, PLEASE CHECK THE FILM AND CATEGORY TABLES FOR AN EXISTING FILM ID AND CATEGORY ID RESPECTIVELY")</script>';
                                 
-                                echo("<meta http-equiv='refresh' content='1'>");
+                                    echo("<meta http-equiv='refresh' content='1'>");
+                                }else{
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! FILM ID ENTERED DOES NOT EXIST")</script>';
+                                }
                             }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! INVALID FILM ID ENTERED")</script>';
                             }
-                                
                         }else{
-                            echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS UPDATE FAILED! PLEASE FILL ALL FIELDS")</script>';
                         }
                     }
                     ?>
@@ -199,28 +202,33 @@
             <?php
                 if(isset($_POST['delete'])){
                     if(!empty($_POST['filmid'])){
-                        $filmid= $_POST['filmid'];
-                        $query= "SELECT film_id FROM film_category WHERE film_id = $filmid;";
-                        $result= mysqli_query($conn,$query);
-
-                        if(mysqli_num_rows($result)==1){
+                        if((is_numeric($_POST['filmid'])) && ($_POST['filmid'] > 0)){
                             $filmid= $_POST['filmid'];
-                            $delete = "DELETE FROM film_category WHERE film_id= '$filmid'; ";
-                            $result = mysqli_query($conn,$delete); 
-                            
-                            if($result){
-                                echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+                            $query= "SELECT film_id FROM film_category WHERE film_id = $filmid;";
+                            $result= mysqli_query($conn,$query);
 
-                        }else{
-                            echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
-                        }
-                        echo("<meta http-equiv='refresh' content='1'>");
-                           }elseif (mysqli_num_rows($result)==0){
-                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
-                        }
+                            if(mysqli_num_rows($result)==1){
+                                $filmid= $_POST['filmid'];
+                                $delete = "DELETE FROM film_category WHERE film_id= '$filmid'; ";
+                                $result = mysqli_query($conn,$delete); 
                             
+                                if($result){
+                                    echo '<script> alert("ROW DELETED SUCCESSFULLY!")</script>';
+
+                                }else{
+                                    echo '<script> alert("PREVIOUS DELETE FAILED! YOU ARE NOT ALLOWED TO DELETE THIS ROW")</script>';
+                                }
+                                
+                                echo("<meta http-equiv='refresh' content='1'>");
+                            }elseif (mysqli_num_rows($result)==0){
+                                echo '<script> alert("PREVIOUS DELETE FAILED! FILM ID ENTERED DOES NOT EXIST")</script>';
+                            }
+                        }else{
+                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID FILM ID ENTERED")</script>';
+                        }  
                     }else{
-                        echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                        echo '<script> alert("PREVIOUS DELETE FAILED! PLEASE FILL ALL FIELDS")</script>';
+                        
                     }
                 }
             ?>
