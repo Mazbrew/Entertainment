@@ -46,7 +46,7 @@
                 <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
             </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY STORE ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY STORE ID" size="30" style= "border-radius: 5px;">
             </form>
             <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
