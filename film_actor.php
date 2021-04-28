@@ -19,14 +19,42 @@
         </div>
 
         <div class="bar">
+            <div id="mySidenav" class="sidenav">
+                <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+                <a href= "actor.php">actor</a>
+                <a href= "address.php">address</a>
+                <a href= "category.php">category</a>
+                <a href= "city.php">city</a>
+                <a href= "country.php">country</a>
+                <a href= "customer.php">customer</a>
+                <a href= "film_actor.php">film_actor</a>
+                <a href= "film_category.php">film_category</a>
+                <a href= "film_text.php">film_text</a>
+                <a href= "film.php">film</a>
+                <a href= "inventory.php">inventory</a>
+                <a href= "language.php">language</a>
+                <a href= "payment.php">payment</a>
+                <a href= "rental.php">rental</a>
+                <a href= "staff.php">staff</a>
+                <a href= "store.php">store</a>
+                <a href= "payment&customer.php">payment&customer</a>
+                <a href= "film&film_text&film_category&category&language.php">film&film_text&film_category&category&language</a>
+                <a href= "country&city&address.php">country&city&address</a>
+            </div>
+
+            <div class="menu">
+                <span style="font-size:25px;cursor:pointer;color:white; text-align:left; display:inline;" onclick="openNav()">&#9776; MENU</span>
+            </div>
             <form action= "" method= "POST" style= 'display: inline;'>
-                <input type ="text" name= "search" placeholder="SEARCH BY ID" style= "border-radius: 5px;">
+                <input type ="text" name= "search" placeholder="SEARCH BY ACTOR ID" size="30" style= "border-radius: 5px;">
+            </form>
+            <form action= "" method= "POST" style= 'display: inline;'>
                 <input type = "submit" name= "reset" value= "RESET" class="button"> 
             </form>
-            <button id="insert" class= "button">INSERT</button>
-            <button id="update" class= "button">UPDATE</button>
-            <button id="delete" class= "button">DELETE</button>
-        </div>
+                <button id="insert" class= "button">INSERT</button>
+                <button id="update" class= "button">UPDATE</button>
+                <button id="delete" class= "button">DELETE</button>
+            </div>
 
         <?php
             echo "<table><thead><tr><th>Actor_id</th><th>Film_id</th><th>Last_update</th></thead><tbody>"; 
@@ -78,7 +106,7 @@
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['actorid'])&& !empty($_POST['filmid'])){
-                            if($_POST['actorid'] > 0 && $_POST['filmid'] > 0){
+                            if((is_numeric($_POST['actorid'])) && (is_numeric($_POST['filmid'])) && $_POST['actorid'] > 0 && $_POST['filmid'] > 0){
                                 $actorid= $_POST['actorid'];
                                 $filmid= $_POST['filmid'];
                                 $query= "SELECT actor_id , film_id FROM film_actor WHERE actor_id = $actorid and film_id = $filmid;";
@@ -95,19 +123,19 @@
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                     }
                                     else
-                                        echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';    
+                                        echo '<script> alert("PREVIOUS INSERT FAILED! ACTOR ID OR FILM ID ENTERED DOES NOT EXIST, PLEASE CHECK THE ACTOR AND FILM TABLE FOR AN EXISTING ACTOR ID AND FILM ID RESPECTIVELY")</script>';    
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>';
+                                    echo '<script> alert("PREVIOUS INSERT FAILED! ACTOR ID AND FILM ID ENTERED ALREADY EXIST")</script>';
                                 }  
                             }
                             else{
-                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ID ENTERED")</script>';
+                                echo '<script> alert("PREVIOUS INSERT FAILED! INVALID ACTOR ID OR FILM ID ENTERED")</script>';
                             }
                         } 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! PLEASE FILL ALL FIELDS")</script>';
                         }
                     }
                     
@@ -134,6 +162,8 @@
                     <?php
                     if(isset($_POST['update'])){
                         if(!empty($_POST['oldactorid'])&&  !empty($_POST['oldfilmid']) && !empty($_POST['actorid']) &&  !empty($_POST['filmid'])){
+                            if((is_numeric($_POST['oldactorid'])) && (is_numeric($_POST['oldfilmid'])) &&(is_numeric($_POST['actorid'])) && (is_numeric($_POST['filmid'])) && 
+                            $_POST['oldactorid'] > 0 && $_POST['oldfilmid'] > 0 && $_POST['actorid'] > 0 && $_POST['filmid'] > 0){
                             $oldactorid= $_POST['oldactorid'];
                             $oldfilmid= $_POST['oldfilmid'];
                             $query= "SELECT actor_id,film_id FROM film_actor WHERE actor_id = $oldactorid AND film_id = $oldfilmid;";
@@ -156,17 +186,23 @@
                                     if($result)
                                     echo '<script> alert("DATA UPDATED SUCCESSFULLY!")</script>';
                                     else
-                                    echo '<script> alert("PREVIOUS UPDATE FAILED! CHECK IF THERE WERE MISTAKES MADE WHEN UPDATING")</script>';  
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! ACTOR ID OR FILM ID ENTERED DOES NOT EXIST, PLEASE CHECK THE ACTOR AND FILM TABLE FOR AN EXISTING ACTOR ID AND FILM ID RESPECTIVELY")</script>';  
                             
                                     echo("<meta http-equiv='refresh' content='1'>");
+                                }
+                                else{
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! ACTOR ID AND FILM ID ENTERED ALREADY EXIST")</script>';
+                                }
                             }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! OLD IDS do not exist")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! OLD IDS DO NOT EXIST")</script>';
                             }
-                                
-                        }else{
-                            echo '<script> alert("PREVIOUS UPDATE FAILED, PLEASE FILL ALL FIELDS!")</script>';
                         }
-                    }
+                        else{
+                            echo '<script> alert("PREVIOUS UPDATE FAILED! INVALID OLD IDS OR NEW IDS ENTERED")</script>';
+                        }
+                    }else{
+                            echo '<script> alert("PREVIOUS UPDATE FAILED! PLEASE FILL ALL FIELDS")</script>';
+                    }    
                 }
                     ?>
 
@@ -190,6 +226,7 @@
                 if(isset($_POST['delete'])){
                        
                     if(!empty($_POST['actorid']) && !empty($_POST['filmid'])  ){
+                        if((is_numeric($_POST['actorid'])) && (is_numeric($_POST['filmid'])) && $_POST['actorid'] > 0 && $_POST['filmid'] > 0){
                         $actorid= $_POST['actorid'];
                         $filmid= $_POST['filmid'];
                         $query= "SELECT actor_id FROM film_actor WHERE actor_id = $actorid AND film_id = $filmid;";
@@ -207,12 +244,15 @@
                             }
                         
                             echo("<meta http-equiv='refresh' content='1'>");
-                        }elseif (mysqli_num_rows($result)==0){
-                            echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ID ENTERED")</script>';
+                        }else{
+                            echo '<script> alert("PREVIOUS DELETE FAILED! ACTOR ID AND FILM ID ENTERED DO NOT EXIST")</script>';
                         }
+                    }else{
+                        echo '<script> alert("PREVIOUS DELETE FAILED! INVALID ACTOR ID OR FILM ID ENTERED")</script>';
+                    }
                             
                     }else{
-                        echo '<script> alert("PREVIOUS DELETE FAILED, PLEASE FILL ALL FIELDS!")</script>';
+                        echo '<script> alert("PREVIOUS DELETE FAILED! PLEASE FILL ALL FIELDS")</script>';
                     }
 
                 }
@@ -251,6 +291,13 @@
             function(){
                 document.querySelector('.delete').style.display= 'none';
             });
+            function openNav() {
+                document.getElementById("mySidenav").style.width = "620px";
+            }
+
+            function closeNav() {
+                document.getElementById("mySidenav").style.width = "0";
+            }
             
         </script>
     </body>
