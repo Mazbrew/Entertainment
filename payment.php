@@ -155,16 +155,14 @@
                     <p>Rental ID:</p>
                         <input type="text" name="rentalid" onkeydown="return event.key != 'Enter'">
                     <p>Amount:</p>
-                        <input type="text" name="amount" onkeydown="return event.key != 'Enter'">
-                    <p>Payment Date:</p>
-                        <input type="text" name="paymentdate" style="display:block;" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="amount" style="display:block;" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "insert" class= "greenbutton" value ="INSERT">
 
                     <?php
                     if(isset($_POST['insert'])){
                         if(!empty($_POST['paymentid'])&& !empty($_POST['customerid'])&& !empty($_POST['staffid'])
-                        && !empty($_POST['amount'])&& !empty($_POST['paymentdate'])){
-                            if((is_numeric($_POST['storeid']))&&$_POST['paymentid'] > 0){
+                        && !empty($_POST['amount'])){
+                            if((is_numeric($_POST['paymentid']))&&$_POST['paymentid'] > 0){
                                 $paymentid= $_POST['paymentid'];
                                 $query= "SELECT payment_id FROM payment WHERE payment_id = $paymentid;";
                                 $result= mysqli_query($conn,$query);
@@ -175,7 +173,7 @@
                                     $staffid= $_POST['staffid'];
                                     $rentalid= $_POST['rentalid'];
                                     $amount= $_POST['amount'];
-                                    $paymentdate= $_POST['paymentdate'];
+                                    $paymentdate= date('Y-m-d H:i:s');
                                     $lastupdate= date('Y-m-d H:i:s');
                                     $insert = "INSERT INTO payment VALUES('$paymentid','$customerid','$staffid','$rentalid','$amount','$paymentdate','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
@@ -218,16 +216,14 @@
                     <p>Rental ID:</p>
                         <input type="text" name="rentalid" onkeydown="return event.key != 'Enter'">
                     <p>Amount:</p>
-                        <input type="text" name="amount" onkeydown="return event.key != 'Enter'">
-                    <p>Payment Date:</p>
-                        <input type="text" name="paymentdate" style="display:block;" onkeydown="return event.key != 'Enter'">
+                        <input type="text" name="amount" style="display:block;" onkeydown="return event.key != 'Enter'">
                     <input type= "submit" name= "update" class= "greenbutton" value ="UPDATE">
 
                     <?php
                     if(isset($_POST['update'])){
                         if(!empty($_POST['paymentid'])&& !empty($_POST['customerid'])&& !empty($_POST['staffid'])
-                        && !empty($_POST['amount'])&& !empty($_POST['paymentdate'])){
-                            if((is_numeric($_POST['storeid']))&&$_POST['paymentid'] > 0){
+                        && !empty($_POST['amount'])){
+                            if((is_numeric($_POST['paymentid']))&&$_POST['paymentid'] > 0){
                             $paymentid= $_POST['paymentid'];
                             $query= "SELECT payment_id FROM payment WHERE payment_id = $paymentid;";
                             $result= mysqli_query($conn,$query);
@@ -238,10 +234,9 @@
                                 $staffid= $_POST['staffid'];
                                 $rentalid= $_POST['rentalid'];
                                 $amount= $_POST['amount'];
-                                $paymentdate= $_POST['paymentdate'];
                                 $lastupdate= date('Y-m-d H:i:s');
                                 $update = "UPDATE payment SET customer_id= '$customerid', staff_id= '$staffid', rental_id = '$rentalid', 
-                                amount= '$amount', payment_date= '$paymentdate', last_update= '$lastupdate' WHERE payment_id = $paymentid;";
+                                amount= '$amount', last_update= '$lastupdate' WHERE payment_id = $paymentid;";
                                 $result = mysqli_query($conn,$update); 
                                 
                                 if($result)
@@ -281,7 +276,7 @@
             <?php
                 if(isset($_POST['delete'])){
                     if(!empty($_POST['paymentid'])){
-                        if((is_numeric($_POST['storeid']))&&$_POST['paymentid'] > 0){
+                        if((is_numeric($_POST['paymentid']))&&$_POST['paymentid'] > 0){
                         $paymentid= $_POST['paymentid'];
                         $query= "SELECT payment_id FROM payment WHERE payment_id = $paymentid;";
                         $result= mysqli_query($conn,$query);
