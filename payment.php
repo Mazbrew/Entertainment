@@ -182,7 +182,7 @@
                                     }
                                     else
                                     echo '<script> alert("PREVIOUS INSERT FAILED! CUSTOMER ID, STAFF ID OR RENTAL ID ENTERED DOES NOT EXIST, PLEASE CHECK THE CUSTOMER, STAFF AND RENTAL TABLES FOR AN EXISTING CUSTOMER ID, STAFF ID AND RENTAL ID RESPECTIVELY")</script>'; 
-
+                                    
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
