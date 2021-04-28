@@ -62,7 +62,7 @@
                 
                 $search = $_POST['search'];
             
-                $query = "SELECT * FROM film_actor WHERE actor_id LIKE '%$search%' ORDER BY actor_id ASC;";    
+                $query = "SELECT * FROM film_actor WHERE actor_id LIKE '%$search%';";    
                 $result = mysqli_query($conn,$query);
 
                 if(mysqli_num_rows($result)>0){
@@ -74,7 +74,7 @@
                 }
 
             }elseif(isset($_POST['reset'])){
-                $query = "SELECT * FROM film_actor ORDER BY actor_id ASC;";
+                $query = "SELECT * FROM film_actor;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
@@ -82,7 +82,7 @@
                 }
 
             }else {
-                $query = "SELECT * FROM film_actor ORDER BY actor_id ASC;";
+                $query = "SELECT * FROM film_actor;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
@@ -191,10 +191,10 @@
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
                                 else{
-                                    echo '<script> alert("PREVIOUS UPDATE FAILED! ACTOR ID AND FILM ID ENTERED ALREADY EXIST")</script>';
+                                    echo '<script> alert("PREVIOUS UPDATE FAILED! NEW IDS ENTERED ALREADY EXIST")</script>';
                                 }
                             }else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! OLD IDS DO NOT EXIST")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! OLD IDS ENTERED DO NOT EXIST")</script>';
                             }
                         }
                         else{
