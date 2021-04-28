@@ -148,8 +148,6 @@
                                     $username= $_POST['username'];
                                     $password= $_POST['password'];
                                     $lastupdate= date('Y-m-d H:i:s');
-                                    $firstname= strtoupper($firstname);
-                                    $lastname= strtoupper($lastname);
                                     $insert = "INSERT INTO staff (staff_id, first_name, last_name, address_id, email, store_id, active, username, password, last_update) VALUES('$staffid','$firstname','$lastname','$addressid','$email',
                                     '$storeid','$active','$username','$password','$lastupdate');";
                                     $result = mysqli_query($conn,$insert);
@@ -170,7 +168,7 @@
                             }
                         } 
                         else{
-                            echo '<script> alert("PREVIOUS INSERT FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PASSWORD")</script>';
+                            echo '<script> alert("PREVIOUS INSERT FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PASSWORD AND MAKE SURE ACTIVE HOLDS EITHER 0 OR 1")</script>';
                         }
                     }
                     
@@ -224,8 +222,6 @@
                                     $username= $_POST['username'];
                                     $password= $_POST['password'];
                                     $lastupdate= date('Y-m-d H:i:s');
-                                    $firstname= strtoupper($firstname);
-                                    $lastname= strtoupper($lastname);
                                     $update = "UPDATE staff SET firstname= '$firstname', lastname= '$lastname', address_id = '$addressid', 
                                     email = '$email',store_id = '$storeid',active = '$active',username= '$username', password= '$password', last_update= '$lastupdate' WHERE staff_id = $staffid;";
                                     $result = mysqli_query($conn,$update); 
@@ -245,7 +241,7 @@
                             }
                         }
                         else{
-                                echo '<script> alert("PREVIOUS UPDATE FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PASSWORD")</script>';
+                                echo '<script> alert("PREVIOUS UPDATE FAILED! ALL FIELDS ARE MANDATORY TO BE FILLED EXCEPT FOR PASSWORD AND MAKE SURE ACTIVE HOLDS EITHER 0 OR 1")</script>';
                         }
                     }
                     ?>
