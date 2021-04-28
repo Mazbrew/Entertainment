@@ -175,7 +175,12 @@
                                     $amount= $_POST['amount'];
                                     $paymentdate= date('Y-m-d H:i:s');
                                     $lastupdate= date('Y-m-d H:i:s');
-                                    $insert = "INSERT INTO payment VALUES('$paymentid','$customerid','$staffid','$rentalid','$amount','$paymentdate','$lastupdate');";
+                                    if(!empty($_POST['rentalid']))
+                                        $insert = "INSERT INTO payment VALUES('$paymentid','$customerid','$staffid','$rentalid','$amount','$paymentdate','$lastupdate');";
+                                    else{
+                                        $insert = "INSERT INTO payment (payment_id, customer_id, staff_id, amount, payment_date, last_update)
+                                        VALUES('$paymentid','$customerid','$staffid', '$amount','$paymentdate','$lastupdate');";
+                                    }
                                     $result = mysqli_query($conn,$insert);
                                     if ($result) {
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
@@ -235,8 +240,14 @@
                                 $rentalid= $_POST['rentalid'];
                                 $amount= $_POST['amount'];
                                 $lastupdate= date('Y-m-d H:i:s');
-                                $update = "UPDATE payment SET customer_id= '$customerid', staff_id= '$staffid', rental_id = '$rentalid', 
-                                amount= '$amount', last_update= '$lastupdate' WHERE payment_id = $paymentid;";
+                                if(!empty($_POST['rentalid'])){
+                                    $update = "UPDATE payment SET customer_id= '$customerid', staff_id= '$staffid', rental_id = '$rentalid', 
+                                    amount= '$amount', last_update= '$lastupdate' WHERE payment_id = $paymentid;";
+                                }
+                                else{
+                                    $update = "UPDATE payment SET customer_id= '$customerid', staff_id= '$staffid', 
+                                    amount= '$amount', last_update= '$lastupdate' WHERE payment_id = $paymentid;";
+                                }
                                 $result = mysqli_query($conn,$update); 
                                 
                                 if($result)

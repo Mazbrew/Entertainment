@@ -177,7 +177,10 @@
                                     $rentaldate= $_POST['rentaldate'];
                                     $inventoryid= $_POST['inventoryid'];
                                     $customerid= $_POST['customerid'];
-                                    $returndate= $_POST['returndate'];
+                                    if(!empty($_POST['returndate']))
+                                        $returndate= $_POST['returndate'];
+                                    else
+                                        $returndate = "0000-00-00 00:00:00";
                                     $staffid= $_POST['staffid'];
                                     $lastupdate= date('Y-m-d H:i:s');
                                     $insert = "INSERT INTO rental VALUES('$rentalid','$rentaldate','$inventoryid','$customerid','$returndate','$staffid','$lastupdate');";
@@ -240,7 +243,10 @@
                                     $rentaldate= $_POST['rentaldate'];
                                     $inventoryid= $_POST['inventoryid'];
                                     $customerid= $_POST['customerid'];
-                                    $returndate= $_POST['returndate'];
+                                    if(!empty($_POST['returndate']))
+                                        $returndate= $_POST['returndate'];
+                                    else
+                                        $returndate = "0000-00-00 00:00:00";
                                     $staffid= $_POST['staffid'];
                                     $lastupdate= date('Y-m-d H:i:s');
                                     $update = "UPDATE rental SET  rental_date = '$rentaldate', inventory_id= '$inventoryid', customer_id = '$customerid', 
