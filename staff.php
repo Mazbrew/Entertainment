@@ -222,7 +222,7 @@
                                     $username= $_POST['username'];
                                     $password= $_POST['password'];
                                     $lastupdate= date('Y-m-d H:i:s');
-                                    $update = "UPDATE staff SET firstname= '$firstname', lastname= '$lastname', address_id = '$addressid', 
+                                    $update = "UPDATE staff SET first_name= '$firstname', last_name= '$lastname', address_id = '$addressid', 
                                     email = '$email',store_id = '$storeid',active = '$active',username= '$username', password= '$password', last_update= '$lastupdate' WHERE staff_id = $staffid;";
                                     $result = mysqli_query($conn,$update); 
                                     
