@@ -71,7 +71,7 @@
                 }
 
             }elseif(isset($_POST['reset'])){
-                $query = "SELECT country, city, postal_code FROM country LEFT JOIN city ON country.country_id = city.country_id LEFT JOIN address ON city.city_id = address.city_id GROUP BY postal_code ORDER BY country ASC;";
+                $query = "SELECT country, city, postal_code FROM country LEFT JOIN city ON country.country_id = city.country_id LEFT JOIN address ON city.city_id = address.city_id ORDER BY country ASC;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
@@ -79,7 +79,7 @@
                 }
 
             }else {
-                $query = "SELECT country, city, postal_code FROM country LEFT JOIN city ON country.country_id = city.country_id LEFT JOIN address ON city.city_id = address.city_id GROUP BY postal_code ORDER BY country ASC;";
+                $query = "SELECT country, city, postal_code FROM country LEFT JOIN city ON country.country_id = city.country_id LEFT JOIN address ON city.city_id = address.city_id ORDER BY country ASC;";
                 $result = mysqli_query($conn,$query);
 
                 while($row = mysqli_fetch_assoc($result)){   
