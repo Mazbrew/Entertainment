@@ -181,7 +181,7 @@
                                         echo '<script> alert("DATA INSERTED SUCCESSFULLY!")</script>';
                                     }
                                     else
-                                    echo '<script> alert("PREVIOUS INSERT FAILED! EITHER CUSTOMER ID, STAFF ID OR RENTAL ID ENTERED DOES NOT EXIST, PLEASE CHECK THE CUSTOMER, STAFF AND RENTAL TABLES FOR AN EXISTING CUSTOMER ID, STAFF ID AND RENTAL ID RESPECTIVELY OR CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
+                                        echo '<script> alert("PREVIOUS INSERT FAILED! EITHER CUSTOMER ID, STAFF ID OR RENTAL ID ENTERED DOES NOT EXIST, PLEASE CHECK THE CUSTOMER, STAFF AND RENTAL TABLES FOR AN EXISTING CUSTOMER ID, STAFF ID AND RENTAL ID RESPECTIVELY OR CHECK IF THERE WERE MISTAKES MADE WHEN INSERTING")</script>'; 
 
                                     echo("<meta http-equiv='refresh' content='1'>");
                                 }
